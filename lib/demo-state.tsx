@@ -4,6 +4,7 @@
 // and is persisted to sessionStorage so it survives navigation and cold starts.
 import { createContext, useContext, useEffect, useState, ReactNode } from "react";
 import type { Booking, Gender, SharingPreference } from "./types";
+import type { ChartOutcome } from "@/app/api/chart/prepare/route";
 
 interface DemoState {
   trainNumber?: string;
@@ -12,6 +13,7 @@ interface DemoState {
   passengerName?: string;
   passengerAge?: number;
   booking?: Booking;
+  chartOutcome?: ChartOutcome;
 }
 
 interface DemoStateContextValue {

@@ -34,9 +34,12 @@ export default function ConfirmationPage() {
       </div>
 
       <Link
-        href="/"
+        href="/tracking"
         className="rounded-md bg-black text-white py-3 font-medium text-center"
       >
+        Track this booking
+      </Link>
+      <Link href="/" className="text-sm text-center text-zinc-600 underline">
         Search another train
       </Link>
     </main>
