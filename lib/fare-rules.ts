@@ -71,6 +71,12 @@ export const FARE_RULES: FareRule[] = [
  */
 export const RAC_ENTITLEMENT_REFUND_RATIO = 0.5;
 
+/** Synthetic per-passenger base fares by class, for demo fare breakdowns only. */
+export const BASE_FARE_BY_CLASS: Record<string, number> = {
+  SL: 700,
+  "3A": 1400,
+};
+
 /** Ladies quota berth count is deliberately excluded from logic — see SPEC.md §7.1: sources disagree (6/train vs 4-6/coach). */
 export const LADIES_QUOTA_NOTE =
   "Sources disagree on ladies quota berth counts (6 per train vs 4-6 per coach); no logic in this prototype depends on this number.";
