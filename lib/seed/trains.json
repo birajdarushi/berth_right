@@ -1,0 +1,106 @@
+[
+  {
+    "number": "900001",
+    "name": "Nilgiri Express",
+    "from": "NDLS",
+    "to": "BCT",
+    "departure": "2026-08-30T22:51:00.000Z",
+    "arrival": "2026-08-31T11:51:00.000Z",
+    "isOvernight": true,
+    "classes": [
+      "SL",
+      "3A"
+    ]
+  },
+  {
+    "number": "900002",
+    "name": "Saurashtra Express",
+    "from": "HWH",
+    "to": "MAS",
+    "departure": "2026-08-30T20:37:00.000Z",
+    "arrival": "2026-08-31T07:37:00.000Z",
+    "isOvernight": true,
+    "classes": [
+      "SL",
+      "3A"
+    ]
+  },
+  {
+    "number": "900003",
+    "name": "Malwa Express",
+    "from": "SBC",
+    "to": "PUNE",
+    "departure": "2026-08-30T20:08:00.000Z",
+    "arrival": "2026-08-31T08:08:00.000Z",
+    "isOvernight": true,
+    "classes": [
+      "SL",
+      "3A"
+    ]
+  },
+  {
+    "number": "900004",
+    "name": "Konkan Express",
+    "from": "NDLS",
+    "to": "BCT",
+    "departure": "2026-08-30T22:28:00.000Z",
+    "arrival": "2026-08-31T09:28:00.000Z",
+    "isOvernight": true,
+    "classes": [
+      "SL",
+      "3A"
+    ]
+  },
+  {
+    "number": "900005",
+    "name": "Malwa Express",
+    "from": "HWH",
+    "to": "MAS",
+    "departure": "2026-08-30T22:16:00.000Z",
+    "arrival": "2026-08-31T14:16:00.000Z",
+    "isOvernight": true,
+    "classes": [
+      "SL",
+      "3A"
+    ]
+  },
+  {
+    "number": "900006",
+    "name": "Vindhya Express",
+    "from": "SBC",
+    "to": "PUNE",
+    "departure": "2026-08-30T07:36:00.000Z",
+    "arrival": "2026-08-30T14:36:00.000Z",
+    "isOvernight": false,
+    "classes": [
+      "SL",
+      "3A"
+    ]
+  },
+  {
+    "number": "900007",
+    "name": "Konkan Express",
+    "from": "NDLS",
+    "to": "BCT",
+    "departure": "2026-08-30T10:27:00.000Z",
+    "arrival": "2026-08-30T17:27:00.000Z",
+    "isOvernight": false,
+    "classes": [
+      "SL",
+      "3A"
+    ]
+  },
+  {
+    "number": "900008",
+    "name": "Vindhya Express",
+    "from": "HWH",
+    "to": "MAS",
+    "departure": "2026-08-30T11:44:00.000Z",
+    "arrival": "2026-08-30T19:44:00.000Z",
+    "isOvernight": false,
+    "classes": [
+      "SL",
+      "3A"
+    ]
+  }
+]

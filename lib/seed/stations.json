@@ -1,0 +1,20 @@
+[
+  {
+    "from": "NDLS",
+    "to": "BCT",
+    "fromName": "New Delhi",
+    "toName": "Mumbai Central"
+  },
+  {
+    "from": "HWH",
+    "to": "MAS",
+    "fromName": "Howrah",
+    "toName": "Chennai Central"
+  },
+  {
+    "from": "SBC",
+    "to": "PUNE",
+    "fromName": "Bengaluru",
+    "toName": "Pune"
+  }
+]
