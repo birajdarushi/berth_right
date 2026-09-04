@@ -290,7 +290,10 @@ export default function QueueVisualization({
       </div>
 
       {/* SVG Canvas Container */}
-      <div className="overflow-x-auto rounded-xl border border-border/80 bg-card/50 p-2.5 shadow-2xs backdrop-blur-xs max-h-[460px] overflow-y-auto">
+      {/* max-w keeps the diagram at its designed (mobile) scale instead of stretching
+          to the full container width on desktop, which used to blow up its height by
+          the same ratio and force an internal scrollbar mid-animation. */}
+      <div className="mx-auto w-full max-w-[440px] overflow-x-auto rounded-xl border border-border/80 bg-card/50 p-2.5 shadow-2xs backdrop-blur-xs max-h-[640px] overflow-y-auto">
         <svg
           viewBox={`0 0 350 ${svgHeight}`}
           width="100%"
