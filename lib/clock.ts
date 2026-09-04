@@ -13,3 +13,12 @@ export function setOffset(ms: number): void {
 export function resetOffset(): void {
   offsetMs = 0;
 }
+
+export function getOffset(): number {
+  return offsetMs;
+}
+
+/** Shift "now" so that clock.now() equals targetMs. Uses Date.now() only here. */
+export function offsetTo(targetMs: number): void {
+  offsetMs = targetMs - Date.now();
+}

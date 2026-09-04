@@ -211,3 +211,42 @@ export function pairRacQueue(
 
   return { pairings, unpaired };
 }
+
+/**
+ * "Today's system" — pairs strictly by queue order, two per side-lower berth,
+ * gender not considered at all. This is the baseline the queue visualization
+ * contrasts against `pairRacQueue`; it is never used for real allocation.
+ */
+export function pairNaive(
+  racQueue: RacEntry[],
+  berthIds: BerthId[]
+): { pairings: Pairing[]; unpaired: RacEntry[] } {
+  const sorted = [...racQueue].sort((a, b) => a.position - b.position);
+  const pairings: Pairing[] = [];
+  const unpaired: RacEntry[] = [];
+
+  for (let i = 0; i < sorted.length; i += 2) {
+    const a = sorted[i];
+    const b = sorted[i + 1];
+    if (!b) {
+      unpaired.push(a);
+      continue;
+    }
+    const preferenceViolated =
+      ((a.preference === "same_gender_only" || a.preference === "prefer_same_gender") &&
+        a.passenger.gender !== b.passenger.gender) ||
+      ((b.preference === "same_gender_only" || b.preference === "prefer_same_gender") &&
+        b.passenger.gender !== a.passenger.gender);
+    pairings.push({
+      berthId: berthIds[pairings.length] ?? `overflow-${pairings.length}`,
+      occupants: [a, b],
+      constraintsSatisfied: [
+        { name: "capacity", satisfied: true, detail: "Berth holds at most two occupants." },
+      ],
+      preferenceViolated,
+      explanation: buildExplanation([a, b], "Paired strictly by queue order; gender not considered."),
+    });
+  }
+
+  return { pairings, unpaired };
+}

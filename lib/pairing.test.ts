@@ -1,5 +1,6 @@
 import { describe, it, expect } from "vitest";
-import { pairRacQueue } from "./pairing";
+import { pairRacQueue, pairNaive } from "./pairing";
+import { SEED_RAC_QUEUES, SEED_COACHES } from "./seed";
 import type { Passenger, RacEntry } from "./types";
 
 function entry(overrides: {
@@ -88,5 +89,18 @@ describe("pairRacQueue", () => {
     const { pairings } = pairRacQueue(queue, BERTHS);
     expect(pairings[0].occupants.map((o) => o?.passenger.id)).toEqual(["p1", "p2"]);
     expect(pairings[1].occupants.map((o) => o?.passenger.id)).toEqual(["p3", "p4"]);
+  });
+});
+
+describe("pairNaive", () => {
+  it("produces at least one mixed-gender pairing on seed train 900001", () => {
+    const queue = SEED_RAC_QUEUES["900001"];
+    const berths = SEED_COACHES["900001"].flatMap((c) => c.sideLowerBerths);
+    const { pairings } = pairNaive(queue, berths);
+    const mixed = pairings.some((p) => {
+      const [a, b] = p.occupants;
+      return a && b && a.passenger.gender !== b.passenger.gender;
+    });
+    expect(mixed).toBe(true);
   });
 });
