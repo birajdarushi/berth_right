@@ -41,3 +41,7 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 .playwright-mcp/
+
+# submission assets — not app source, not needed in the deploy or repo history
+*.mov
+/Berth_Right_All_UI_Screens/
