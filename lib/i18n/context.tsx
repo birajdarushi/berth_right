@@ -29,13 +29,22 @@ export function I18nProvider({ children }: { children: ReactNode }) {
     setMounted(true);
     const savedLang = (localStorage.getItem(LANGUAGE_STORAGE_KEY) ||
       sessionStorage.getItem(LANGUAGE_STORAGE_KEY)) as Language | null;
-    if (savedLang === "en" || savedLang === "hi" || savedLang === "mr") {
-      setLangState(savedLang);
+    const initial = savedLang === "en" || savedLang === "hi" || savedLang === "mr" ? savedLang : "en";
+    if (savedLang) {
+      setLangState(initial);
+    }
+    if (typeof document !== "undefined") {
+      document.documentElement.setAttribute("data-lang", initial);
+      document.documentElement.lang = initial;
     }
   }, []);
 
   const setLang = (newLang: Language) => {
     setLangState(newLang);
+    if (typeof document !== "undefined") {
+      document.documentElement.setAttribute("data-lang", newLang);
+      document.documentElement.lang = newLang;
+    }
     try {
       localStorage.setItem(LANGUAGE_STORAGE_KEY, newLang);
       sessionStorage.setItem(LANGUAGE_STORAGE_KEY, newLang);

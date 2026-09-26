@@ -23,17 +23,17 @@ export default function PaymentPage() {
 
   return (
     <Screen>
-      <div className="flex flex-col items-center gap-4 rounded-lg border-2 border-dashed border-fuchsia-400 bg-fuchsia-50 p-6 text-center">
-        <CreditCard className="size-8 text-fuchsia-600" />
+      <div className="flex flex-col items-center gap-4 rounded-xl border-2 border-dashed border-primary/30 bg-muted/20 p-6 text-center paper-shadow">
+        <CreditCard className="size-8 text-primary" />
         <div>
-          <p className="mb-1 text-lg font-bold text-fuchsia-700">
+          <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded bg-primary/10 border border-primary/20 text-primary font-mono font-bold text-xs uppercase tracking-wider mb-2">
             {lang === "hi"
               ? "काल्पनिक भुगतान स्क्रीन — केवल डेमो"
               : lang === "mr"
               ? "काल्पनिक पेमेंट स्क्रीन — फक्त डेमो"
               : "FAKE PAYMENT SCREEN — DEMO ONLY"}
-          </p>
-          <p className="text-sm text-fuchsia-900">
+          </div>
+          <p className="text-xs sm:text-sm text-foreground/80 max-w-md mx-auto leading-relaxed">
             {lang === "hi"
               ? "कोई वास्तविक पेमेंट गेटवे नहीं। कोई पैसा नहीं कटता। किसी भी कार्ड से कुछ चार्ज नहीं होगा।"
               : lang === "mr"
@@ -41,16 +41,16 @@ export default function PaymentPage() {
               : "No real payment gateway. No money moves. Nothing is charged to any card."}
           </p>
         </div>
-        <p className="text-3xl font-semibold tabular-nums">₹{state.booking?.fare.totalFare ?? "—"}</p>
+        <p className="text-3xl font-bold font-mono tabular-nums text-foreground mt-1">₹{state.booking?.fare.totalFare ?? "—"}</p>
         <Button
           disabled={paying}
           onClick={pay}
           size="lg"
-          className="min-h-11 w-full bg-fuchsia-600 text-white hover:bg-fuchsia-700"
+          className="min-h-11 w-full max-w-xs font-semibold shadow-xs"
         >
           {paying
             ? (lang === "hi" ? "भुगतान प्रक्रिया जारी है (मॉक)..." : lang === "mr" ? "पेमेंट प्रक्रिया सुरू आहे (मॉक)..." : "Processing (fake)…")
-            : (lang === "hi" ? "भुगतान करें (काल्पनिक)" : lang === "mr" ? "पेमेंट करा (काल्पनिक)" : "Pay (fake)")}
+            : (lang === "hi" ? "भुगतान करें (काल्पनिक)" : lang === "mr" ? "पेमेंट करा (काल्पनिक)" : "Complete Mock Payment")}
         </Button>
       </div>
     </Screen>

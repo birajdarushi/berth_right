@@ -94,16 +94,18 @@ export default function ChartOutcomePage() {
                   key={b.value}
                   onClick={() => runBranch(b.value)}
                   disabled={loading === b.value}
-                  className="flex min-h-11 items-center gap-2.5 rounded-lg border border-border/80 p-3 text-left text-xs sm:text-sm font-medium transition-colors hover:border-primary hover:bg-accent/40 shadow-2xs disabled:opacity-60"
+                  className="flex min-h-11 items-center gap-2.5 rounded-xl border border-border/80 bg-card p-3 text-left text-xs sm:text-sm font-semibold transition-all hover:border-primary hover:bg-primary/5 paper-shadow disabled:opacity-60"
                 >
                   {loading === b.value ? (
                     <Loader2 className="size-4 shrink-0 animate-spin text-primary" />
                   ) : (
                     <Icon className="size-4 shrink-0 text-primary" />
                   )}
-                  {loading === b.value
-                    ? (lang === "hi" ? "चार्ट तैयार किया जा रहा है…" : lang === "mr" ? "चार्ट तयार होत आहे…" : "Preparing chart…")
-                    : b.label}
+                  <span className="text-foreground">
+                    {loading === b.value
+                      ? (lang === "hi" ? "चार्ट तैयार किया जा रहा है…" : lang === "mr" ? "चार्ट तयार होत आहे…" : "Preparing chart…")
+                      : b.label}
+                  </span>
                 </button>
               );
             })}
@@ -115,59 +117,51 @@ export default function ChartOutcomePage() {
         {/* Right Column: Outcome & ExplainBlock */}
         <div className="flex flex-col gap-4 md:col-span-7">
           {outcome ? (
-            <Card className="gap-2 py-4 shadow-xs">
-              <CardContent className="flex flex-col gap-2.5 px-4">
-                <div className="flex items-center justify-between border-b pb-2 text-sm">
-                  <span className="text-muted-foreground text-xs">{t.common.status}</span>
-                  <Badge variant="secondary" className="font-semibold text-xs">{outcome.status}</Badge>
+            <div className="rounded-xl border border-border/80 bg-card p-5 paper-shadow flex flex-col gap-3">
+              <div className="flex items-center justify-between pb-2 border-b border-border/60 text-sm">
+                <span className="text-xs uppercase font-mono font-bold text-muted-foreground">{t.common.status}</span>
+                <span className="px-2 py-0.5 rounded bg-primary/10 border border-primary/20 text-primary font-mono font-bold text-xs uppercase">
+                  {outcome.status}
+                </span>
+              </div>
+              <p className="text-xs sm:text-sm leading-relaxed text-foreground/90">{outcome.explanation}</p>
+              {outcome.remedy && (
+                <div className="flex gap-2 rounded-lg border border-primary/20 bg-muted/30 p-3 text-xs leading-relaxed text-foreground/90">
+                  <TriangleAlert className="size-4 shrink-0 translate-y-0.5 text-primary" />
+                  <span>{outcome.remedy}</span>
                 </div>
-                <p className="text-xs sm:text-sm leading-relaxed text-foreground/90">{outcome.explanation}</p>
-                {outcome.remedy && (
-                  <div className="flex gap-2 rounded-md border border-amber-200 bg-amber-50 p-3 text-xs leading-relaxed text-amber-900">
-                    <TriangleAlert className="size-4 shrink-0 translate-y-0.5" />
-                    {outcome.remedy}
-                  </div>
-                )}
-                <ExplainBlock
-                  topic="chart"
-                  context={`Branch ${outcome.branch}. Status ${outcome.status}. Preference honoured: ${String(outcome.preferenceHonoured)}. Solver/text: ${outcome.explanation}${outcome.remedy ? ` Remedy: ${outcome.remedy}` : ""}`}
-                />
-                {outcome.status === "RAC" && (
-                  <div className="flex flex-wrap gap-3 pt-1 border-t border-border/40">
-                    <Button
-                      render={
-                        <Link href="/escalate">
-                          {lang === "hi"
-                            ? "यात्रा के दौरान शिकायत दर्ज करें"
-                            : lang === "mr"
-                            ? "प्रवासात तक्रार नोंदवा"
-                            : "Escalate in-journey"}
-                        </Link>
-                      }
-                      variant="link"
-                      size="sm"
-                      className="h-auto min-h-9 p-0 text-xs"
-                    />
-                    <Button
-                      render={
-                        <Link href="/entitlement">
-                          {lang === "hi"
-                            ? "रिफंड अधिकार देखें"
-                            : lang === "mr"
-                            ? "परतावा अधिकार पहा"
-                            : "View entitlement"}
-                        </Link>
-                      }
-                      variant="link"
-                      size="sm"
-                      className="h-auto min-h-9 p-0 text-xs"
-                    />
-                  </div>
-                )}
-              </CardContent>
-            </Card>
+              )}
+              <ExplainBlock
+                topic="chart"
+                context={`Branch ${outcome.branch}. Status ${outcome.status}. Preference honoured: ${String(outcome.preferenceHonoured)}. Solver/text: ${outcome.explanation}${outcome.remedy ? ` Remedy: ${outcome.remedy}` : ""}`}
+              />
+              {outcome.status === "RAC" && (
+                <div className="flex flex-wrap gap-4 pt-2 border-t border-border/60">
+                  <Link
+                    href="/escalate"
+                    className="text-xs font-semibold text-primary underline underline-offset-4 hover:text-primary/80"
+                  >
+                    {lang === "hi"
+                      ? "यात्रा के दौरान शिकायत दर्ज करें →"
+                      : lang === "mr"
+                      ? "प्रवासात तक्रार नोंदवा →"
+                      : "Escalate in-journey →"}
+                  </Link>
+                  <Link
+                    href="/entitlement"
+                    className="text-xs font-semibold text-primary underline underline-offset-4 hover:text-primary/80"
+                  >
+                    {lang === "hi"
+                      ? "रिफंड अधिकार देखें →"
+                      : lang === "mr"
+                      ? "परतावा अधिकार पहा →"
+                      : "View entitlement →"}
+                  </Link>
+                </div>
+              )}
+            </div>
           ) : (
-            <div className="rounded-xl border border-dashed border-border p-6 text-center text-xs text-muted-foreground">
+            <div className="rounded-xl border border-dashed border-border/80 bg-muted/20 p-8 text-center text-xs text-muted-foreground paper-shadow">
               {lang === "hi"
                 ? "परिणाम देखने के लिए बाईं ओर से एक शाखा चुनें।"
                 : lang === "mr"

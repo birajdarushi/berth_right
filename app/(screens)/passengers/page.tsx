@@ -52,23 +52,23 @@ function PassengersPageInner() {
 
       <div className="grid grid-cols-1 sm:grid-cols-12 gap-4 items-end pt-2">
         <div className="flex flex-col gap-1.5 sm:col-span-8">
-          <Label htmlFor="name" className="text-xs font-semibold">{t.passengers.fullName}</Label>
-          <Input id="name" className="min-h-11" value={name} onChange={(e) => setName(e.target.value)} />
+          <Label htmlFor="name" className="text-xs font-bold uppercase font-mono tracking-wider text-muted-foreground">{t.passengers.fullName}</Label>
+          <Input id="name" className="min-h-11 bg-background border-border/80" value={name} onChange={(e) => setName(e.target.value)} />
         </div>
 
         <div className="flex flex-col gap-1.5 sm:col-span-4">
-          <Label htmlFor="age" className="text-xs font-semibold">{t.passengers.ageLabel}</Label>
+          <Label htmlFor="age" className="text-xs font-bold uppercase font-mono tracking-wider text-muted-foreground">{t.passengers.ageLabel}</Label>
           <Input
             id="age"
             type="number"
-            className="min-h-11"
+            className="min-h-11 bg-background border-border/80 font-mono"
             value={age}
             onChange={(e) => setAge(Number(e.target.value))}
           />
         </div>
       </div>
 
-      <Button onClick={continueToFare} size="lg" className="min-h-11 gap-1.5 font-medium mt-3">
+      <Button onClick={continueToFare} size="lg" className="min-h-11 gap-1.5 font-semibold shadow-xs mt-3">
         {t.common.continue}
         <ArrowRight className="size-4" />
       </Button>

@@ -42,16 +42,16 @@ export default function ExplainBlock({
   }, [topic, context, lang]);
 
   return (
-    <div className="rounded-md border border-zinc-200 bg-white p-3">
-      <div className="flex items-center justify-between gap-2 mb-1">
-        <span className="text-[10px] uppercase tracking-wide text-zinc-500 font-medium">
+    <div className="rounded-lg border border-border/80 bg-muted/30 p-3.5 paper-shadow">
+      <div className="flex items-center justify-between gap-2 mb-1.5 pb-1 border-b border-border/50">
+        <span className="text-[10px] uppercase tracking-wider text-primary font-bold font-mono">
           {t.common.plainLanguageNote}
         </span>
-        <span className="text-[10px] text-muted-foreground font-mono uppercase bg-muted/60 px-1.5 py-0.5 rounded">
+        <span className="text-[10px] text-muted-foreground font-mono uppercase bg-background px-1.5 py-0.5 rounded border border-border/60">
           {lang === "en" ? "English" : lang === "hi" ? "हिन्दी" : "मराठी"}
         </span>
       </div>
-      <p className="text-sm text-zinc-800 leading-relaxed">{text}</p>
+      <p className="text-xs sm:text-sm text-foreground/85 leading-relaxed">{text}</p>
     </div>
   );
 }

@@ -7,21 +7,21 @@ import ExplainBlock from "@/components/ExplainBlock";
 import { useI18n } from "@/lib/i18n/context";
 
 const GENDER_COLOR: Record<Gender, string> = {
-  female: "#db2777", // pink-600
-  male: "#2563eb", // blue-600
-  transgender: "#7c3aed", // violet-600
+  female: "#db2777", // pink / rose
+  male: "#2563eb", // blue
+  transgender: "#d97706", // amber
 };
 const GENDER_LETTER: Record<Gender, string> = { female: "F", male: "M", transgender: "T" };
 
-const TOP_PAD = 36;
-const ROW_H = 32;
-const CHIP_R = 10;
-const LEFT_X = 24;
+const TOP_PAD = 28;
+const ROW_H = 25;
+const CHIP_R = 9.5;
+const LEFT_X = 20;
 
-const RIGHT_X = 224;
-const BERTH_W = 102;
-const BERTH_H = 34;
-const BERTH_GAP = 8;
+const RIGHT_X = 212;
+const BERTH_W = 98;
+const BERTH_H = 26;
+const BERTH_GAP = 5;
 const BERTH_ROW_H = BERTH_H + BERTH_GAP;
 
 type Mode = "naive" | "solver";
@@ -129,7 +129,7 @@ export default function QueueVisualization({
 
         if (a) {
           map.set(a.passenger.id, {
-            x: RIGHT_X + 26,
+            x: RIGHT_X + 24,
             y: yBerth,
             berthIndex: bIdx,
             slotIndex: 0,
@@ -139,7 +139,7 @@ export default function QueueVisualization({
         }
         if (b) {
           map.set(b.passenger.id, {
-            x: RIGHT_X + 76,
+            x: RIGHT_X + 74,
             y: yBerth,
             berthIndex: bIdx,
             slotIndex: 1,
@@ -149,10 +149,10 @@ export default function QueueVisualization({
         }
       });
 
-      const unpairedHeaderY = TOP_PAD + result.pairings.length * BERTH_ROW_H + 24;
-      const unpairedStartY = unpairedHeaderY + 16;
+      const unpairedHeaderY = TOP_PAD + result.pairings.length * BERTH_ROW_H + 16;
+      const unpairedStartY = unpairedHeaderY + 14;
       result.unpaired.forEach((u, uIdx) => {
-        const yUnpaired = unpairedStartY + uIdx * (BERTH_H + 6) + BERTH_H / 2;
+        const yUnpaired = unpairedStartY + uIdx * (BERTH_H + 4) + BERTH_H / 2;
         map.set(u.passenger.id, {
           x: RIGHT_X + BERTH_W / 2,
           y: yUnpaired,
@@ -289,24 +289,37 @@ export default function QueueVisualization({
         </button>
       </div>
 
+      {/* Gender Legend */}
+      <div className="flex items-center justify-center gap-4 text-[10px] text-muted-foreground font-mono">
+        <span className="flex items-center gap-1">
+          <span className="inline-block size-2 rounded-full bg-[#2563eb]" />
+          <span>M = {lang === "hi" ? "पुरुष" : lang === "mr" ? "पुरुष" : "Male"}</span>
+        </span>
+        <span className="flex items-center gap-1">
+          <span className="inline-block size-2 rounded-full bg-[#db2777]" />
+          <span>F = {lang === "hi" ? "महिला" : lang === "mr" ? "महिला" : "Female"}</span>
+        </span>
+        <span className="flex items-center gap-1">
+          <span className="inline-block size-2 rounded-full bg-[#d97706]" />
+          <span>T = {lang === "hi" ? "ट्रांसजेंडर" : lang === "mr" ? "ट्रान्सजेंडर" : "Transgender"}</span>
+        </span>
+      </div>
+
       {/* SVG Canvas Container */}
-      {/* max-w keeps the diagram at its designed (mobile) scale instead of stretching
-          to the full container width on desktop, which used to blow up its height by
-          the same ratio and force an internal scrollbar mid-animation. */}
-      <div className="mx-auto w-full max-w-[440px] overflow-x-auto rounded-xl border border-border/80 bg-card/50 p-2.5 shadow-2xs backdrop-blur-xs max-h-[640px] overflow-y-auto">
+      <div className="mx-auto w-full max-w-[420px] rounded-xl border border-border/80 bg-card/60 p-2 sm:p-3 paper-shadow">
         <svg
-          viewBox={`0 0 350 ${svgHeight}`}
+          viewBox={`0 0 330 ${svgHeight}`}
           width="100%"
-          style={{ height: "auto", minHeight: Math.min(svgHeight, 380) }}
+          style={{ height: "auto" }}
           role="img"
           aria-label="RAC queue pairing diagram"
           className="select-none"
         >
           {/* Column Headers */}
-          <text x={LEFT_X} y={18} fontSize={10} fontWeight={600} className="fill-muted-foreground uppercase tracking-wider">
+          <text x={LEFT_X} y={16} fontSize={9.5} fontWeight={600} className="fill-muted-foreground uppercase tracking-wider">
             {lang === "hi" ? "आरएसी कतार" : lang === "mr" ? "आरएसी रांग" : "RAC Queue"}
           </text>
-          <text x={RIGHT_X + BERTH_W / 2} y={18} textAnchor="middle" fontSize={10} fontWeight={600} className="fill-muted-foreground uppercase tracking-wider">
+          <text x={RIGHT_X + BERTH_W / 2} y={16} textAnchor="middle" fontSize={9.5} fontWeight={600} className="fill-muted-foreground uppercase tracking-wider">
             {lang === "hi" ? "साइड-लोअर बर्थ" : lang === "mr" ? "साइड-लोअर बर्थ" : "Side-Lower Berths"}
           </text>
 
@@ -317,7 +330,7 @@ export default function QueueVisualization({
 
             const isSelf = entry.passenger.id === selfPassengerId;
             const isHovered = hoveredId === entry.passenger.id;
-            const x1 = LEFT_X + 46; // start cleanly to the right of `#12` / `You`
+            const x1 = LEFT_X + 38; // start cleanly to the right of position text
             const y1 = yLeft;
             const x2 = target.x - (target.isUnpaired ? 12 : 11);
             const y2 = target.y;
@@ -327,25 +340,25 @@ export default function QueueVisualization({
             const cx2 = x1 + dx * 0.55;
             const pathData = `M ${x1} ${y1} C ${cx1} ${y1}, ${cx2} ${y2}, ${x2} ${y2}`;
 
-            let stroke = "#94a3b8";
+            let stroke = "#D6CFBF";
             let strokeWidth = 1.4;
-            let opacity = 0.45;
+            let opacity = 0.55;
             let strokeDasharray = undefined;
 
             const partnerId = partnerOf.get(entry.passenger.id);
             const showMixed = target.isMixed && (!partnerId || isRevealed(partnerId));
 
             if (showMixed) {
-              stroke = "#f43f5e"; // rose-500
+              stroke = "#B91C1C"; // deep crimson warning
               strokeWidth = isSelf ? 2.8 : 2;
               opacity = isSelf ? 1 : 0.85;
             } else if (target.isUnpaired) {
-              stroke = "#8b5cf6"; // purple-500
+              stroke = "#B45309"; // warm amber
               strokeWidth = 1.6;
               strokeDasharray = "3 3";
               opacity = 0.75;
             } else if (isSelf) {
-              stroke = "#2563eb"; // blue-600
+              stroke = "#8E2B2B"; // railway terracotta
               strokeWidth = 2.8;
               opacity = 1;
             }
@@ -388,8 +401,8 @@ export default function QueueVisualization({
                   width={BERTH_W}
                   height={BERTH_H}
                   rx={6}
-                  fill={showMixed ? "rgba(244, 63, 94, 0.08)" : "rgba(255, 255, 255, 0.65)"}
-                  stroke={showMixed ? "#f43f5e" : "#cbd5e1"}
+                  fill={showMixed ? "rgba(185, 28, 28, 0.08)" : "rgba(255, 255, 255, 0.9)"}
+                  stroke={showMixed ? "#B91C1C" : "#E2DDD3"}
                   strokeWidth={showMixed ? 1.4 : 1}
                   className="transition-all duration-300"
                 />
@@ -397,34 +410,34 @@ export default function QueueVisualization({
                 {/* Berth Label */}
                 <text
                   x={RIGHT_X + BERTH_W / 2}
-                  y={yBerth + 8.5}
+                  y={yBerth + 7.5}
                   textAnchor="middle"
-                  fontSize={7}
+                  fontSize={6.5}
                   fontWeight={700}
-                  fill={showMixed ? "#be123c" : "#64748b"}
-                  className="tracking-tight uppercase"
+                  fill={showMixed ? "#991B1B" : "#78716C"}
+                  className="tracking-tight uppercase font-mono"
                 >
-                  {showMixed ? "⚠️ MIXED" : `BERTH ${bIdx + 1}`}
+                  {showMixed ? "MIXED" : `BERTH ${bIdx + 1}`}
                 </text>
 
                 {/* Slot 1 Outline / Placeholder */}
                 <circle
-                  cx={RIGHT_X + 26}
-                  cy={yBerth + BERTH_H / 2 + 1}
+                  cx={RIGHT_X + 24}
+                  cy={yBerth + BERTH_H / 2}
                   r={CHIP_R - 1}
                   fill="none"
-                  stroke="#cbd5e1"
+                  stroke="#D6CFBF"
                   strokeWidth={1}
                   strokeDasharray="2 2"
                 />
 
                 {/* Slot 2 Outline / Placeholder */}
                 <circle
-                  cx={RIGHT_X + 76}
-                  cy={yBerth + BERTH_H / 2 + 1}
+                  cx={RIGHT_X + 74}
+                  cy={yBerth + BERTH_H / 2}
                   r={CHIP_R - 1}
                   fill="none"
-                  stroke="#cbd5e1"
+                  stroke="#D6CFBF"
                   strokeWidth={1}
                   strokeDasharray="2 2"
                 />
@@ -441,23 +454,23 @@ export default function QueueVisualization({
                 textAnchor="middle"
                 fontSize={8.5}
                 fontWeight={600}
-                fill="#7c3aed"
-                className="uppercase tracking-wider"
+                fill="#92400E"
+                className="uppercase tracking-wider font-mono"
               >
                 {lang === "hi" ? "अविभाजित / अकेला" : lang === "mr" ? "एकटा प्रवासी" : "Unpaired / Solo"}
               </text>
               {activeResult.unpaired.map((u, uIdx) => {
-                const yUnpaired = activeUnpairedHeaderY + 16 + uIdx * (BERTH_H + 6);
+                const yUnpaired = activeUnpairedHeaderY + 14 + uIdx * (BERTH_H + 4);
                 return (
                   <rect
                     key={`unpaired-box-${u.passenger.id}`}
-                    x={RIGHT_X + 18}
+                    x={RIGHT_X + 16}
                     y={yUnpaired}
-                    width={BERTH_W - 36}
+                    width={BERTH_W - 32}
                     height={BERTH_H}
                     rx={6}
-                    fill="rgba(124, 58, 237, 0.06)"
-                    stroke="#a78bfa"
+                    fill="rgba(180, 83, 9, 0.06)"
+                    stroke="#D97706"
                     strokeWidth={1}
                     strokeDasharray="3 2"
                   />
@@ -484,7 +497,7 @@ export default function QueueVisualization({
                     cy={y}
                     r={CHIP_R + 3}
                     fill="none"
-                    stroke={isSelf ? "#2563eb" : "#0f172a"}
+                    stroke={isSelf ? "#8E2B2B" : "#1C1917"}
                     strokeWidth={1.8}
                     opacity={0.8}
                   />
@@ -516,7 +529,7 @@ export default function QueueVisualization({
                   fontWeight={isSelf ? 700 : 500}
                   className={isSelf ? "fill-primary font-bold" : "fill-foreground"}
                 >
-                  {isSelf ? (lang === "hi" ? "आप" : lang === "mr" ? "तुम्ही" : "You") : `#${entry.position}`}
+                  {isSelf ? (lang === "hi" ? "आप" : lang === "mr" ? "तुम्ही" : "You") : `${entry.position}`}
                 </text>
               </g>
             );
@@ -544,7 +557,7 @@ export default function QueueVisualization({
                     cy={slotY}
                     r={CHIP_R + 2.5}
                     fill="none"
-                    stroke={isSelf ? "#2563eb" : "#0f172a"}
+                    stroke={isSelf ? "#8E2B2B" : "#1C1917"}
                     strokeWidth={1.6}
                     opacity={0.8}
                   />
@@ -596,10 +609,10 @@ export default function QueueVisualization({
               {isSelfMixedNaive && self && (
                 <span className="mt-1.5 block font-semibold text-rose-600 dark:text-rose-400">
                   {lang === "hi"
-                    ? "⚠️ इस आवंटन में आपको एक विपरीत-लिंग के अजनबी के साथ रखा जाएगा।"
+                    ? "इस आवंटन में आपको एक विपरीत-लिंग के अजनबी के साथ रखा जाएगा।"
                     : lang === "mr"
-                    ? "⚠️ या वाटपात आपल्याला एका विरुद्ध-लिंगी अनोळखी व्यक्तीसोबत बसवले जाईल."
-                    : "⚠️ Under this system, you are paired with an opposite-gender stranger."}
+                    ? "या वाटपात आपल्याला एका विरुद्ध-लिंगी अनोळखी व्यक्तीसोबत बसवले जाईल."
+                    : "Under this system, you are paired with an opposite-gender stranger."}
                 </span>
               )}
             </p>

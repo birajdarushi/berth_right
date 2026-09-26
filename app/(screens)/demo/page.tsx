@@ -105,101 +105,95 @@ export default function DemoPage() {
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-start">
         {/* Box 1: Time Travel */}
-        <Card className="shadow-2xs">
-          <CardContent className="flex flex-col gap-2.5 p-4 text-xs">
-            <p className="font-semibold text-sm flex items-center gap-1.5 text-foreground">
-              <FastForward className="size-4 text-primary" />
-              {lang === "hi" ? "समय यात्रा" : lang === "mr" ? "वेळ प्रवास" : "Time travel"}
-            </p>
-            <p className="text-muted-foreground text-[11px]">
-              {booking
-                ? (lang === "hi" ? `पीएनआर ${booking.pnr} सक्रिय है` : lang === "mr" ? `पीएनआर ${booking.pnr} सक्रिय आहे` : `PNR ${booking.pnr} active`)
-                : (lang === "hi" ? "कोई सक्रिय बुकिंग नहीं" : lang === "mr" ? "सक्रिय बुकिंग नाही" : "No active booking")}
-            </p>
-            <Button
-              type="button"
-              variant="outline"
-              size="sm"
-              onClick={jumpToChartPrep}
-              disabled={!booking}
-              className="text-xs min-h-9 justify-start"
-            >
-              {lang === "hi"
-                ? "चार्ट तैयारी पर जाएं (-4h)"
-                : lang === "mr"
-                ? "चार्ट तयारीवर जा (-4h)"
-                : "Jump to chart prep (-4h)"}
-            </Button>
-            <Button
-              type="button"
-              variant="ghost"
-              size="sm"
-              onClick={resetClock}
-              className="text-xs min-h-8 text-muted-foreground justify-start"
-            >
-              <RotateCcw className="size-3 mr-1" />
-              {lang === "hi" ? "घड़ी रीसेट करें" : lang === "mr" ? "घड्याळ रीसेट करा" : "Reset clock"}
-            </Button>
-          </CardContent>
-        </Card>
+        <div className="rounded-xl border border-border/80 bg-card p-4 paper-shadow flex flex-col gap-2.5 text-xs">
+          <p className="font-bold font-heading text-sm flex items-center gap-1.5 text-foreground">
+            <FastForward className="size-4 text-primary" />
+            {lang === "hi" ? "समय यात्रा" : lang === "mr" ? "वेळ प्रवास" : "Time travel"}
+          </p>
+          <p className="text-muted-foreground text-[11px] font-mono">
+            {booking
+              ? (lang === "hi" ? `पीएनआर ${booking.pnr} सक्रिय है` : lang === "mr" ? `पीएनआर ${booking.pnr} सक्रिय आहे` : `PNR ${booking.pnr} active`)
+              : (lang === "hi" ? "कोई सक्रिय बुकिंग नहीं" : lang === "mr" ? "सक्रिय बुकिंग नाही" : "No active booking")}
+          </p>
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            onClick={jumpToChartPrep}
+            disabled={!booking}
+            className="text-xs h-auto min-h-9 py-2 px-3 justify-start whitespace-normal text-left leading-normal w-full"
+          >
+            {lang === "hi"
+              ? "चार्ट तैयारी पर जाएं (-4h)"
+              : lang === "mr"
+              ? "चार्ट तयारीवर जा (-4h)"
+              : "Jump to chart prep (-4h)"}
+          </Button>
+          <Button
+            type="button"
+            variant="ghost"
+            size="sm"
+            onClick={resetClock}
+            className="text-xs min-h-8 text-muted-foreground justify-start"
+          >
+            <RotateCcw className="size-3 mr-1" />
+            {lang === "hi" ? "घड़ी रीसेट करें" : lang === "mr" ? "घड्याळ रीसेट करा" : "Reset clock"}
+          </Button>
+        </div>
 
         {/* Box 2: Chart Branches */}
-        <Card className="shadow-2xs">
-          <CardContent className="flex flex-col gap-2.5 p-4 text-xs">
-            <p className="font-semibold text-sm flex items-center gap-1.5 text-foreground">
-              <GitBranch className="size-4 text-primary" />
-              {lang === "hi" ? "चार्ट परिणाम" : lang === "mr" ? "चार्ट निकाल" : "Chart branches"}
-            </p>
-            <div className="flex flex-col gap-1.5">
-              {branches.map((b) => (
-                <button
-                  key={b.value}
-                  type="button"
-                  onClick={() => runBranch(b.value)}
-                  disabled={!booking}
-                  className="rounded-md border border-border/80 p-2 text-left text-xs transition-colors hover:border-primary hover:bg-accent/40 disabled:opacity-50 min-h-8"
-                >
-                  {b.label}
-                </button>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
+        <div className="rounded-xl border border-border/80 bg-card p-4 paper-shadow flex flex-col gap-2.5 text-xs">
+          <p className="font-bold font-heading text-sm flex items-center gap-1.5 text-foreground">
+            <GitBranch className="size-4 text-primary" />
+            {lang === "hi" ? "चार्ट परिणाम" : lang === "mr" ? "चार्ट निकाल" : "Chart branches"}
+          </p>
+          <div className="flex flex-col gap-1.5">
+            {branches.map((b) => (
+              <button
+                key={b.value}
+                type="button"
+                onClick={() => runBranch(b.value)}
+                disabled={!booking}
+                className="rounded-lg border border-border/80 p-2 text-left text-xs transition-colors hover:border-primary hover:bg-primary/5 disabled:opacity-50 min-h-8 font-medium"
+              >
+                {b.label}
+              </button>
+            ))}
+          </div>
+        </div>
 
         {/* Box 3: Reset & Quick Jump */}
-        <Card className="shadow-2xs">
-          <CardContent className="flex flex-col gap-2.5 p-4 text-xs">
-            <p className="font-semibold text-sm flex items-center gap-1.5 text-foreground">
-              <Compass className="size-4 text-primary" />
-              {lang === "hi" ? "त्वरित नेविगेशन" : lang === "mr" ? "जलद नेव्हिगेशन" : "Quick jump"}
-            </p>
-            <div className="grid grid-cols-2 gap-1 max-h-36 overflow-y-auto pr-1">
-              {SCREENS.map(([href, label]) => (
-                <Link
-                  key={href}
-                  href={href}
-                  className="text-[11px] text-muted-foreground hover:text-primary hover:underline p-1 rounded hover:bg-muted/50 truncate"
-                  title={label}
-                >
-                  {label}
-                </Link>
-              ))}
-            </div>
-            <Button
-              type="button"
-              variant="destructive"
-              size="sm"
-              onClick={() => {
-                resetClock();
-                clear();
-                router.push("/");
-              }}
-              className="text-xs min-h-8 mt-1"
-            >
-              {t.demo.resetDemo}
-            </Button>
-          </CardContent>
-        </Card>
+        <div className="rounded-xl border border-border/80 bg-card p-4 paper-shadow flex flex-col gap-2.5 text-xs">
+          <p className="font-bold font-heading text-sm flex items-center gap-1.5 text-foreground">
+            <Compass className="size-4 text-primary" />
+            {lang === "hi" ? "त्वरित नेविगेशन" : lang === "mr" ? "जलद नेव्हिगेशन" : "Quick jump"}
+          </p>
+          <div className="grid grid-cols-2 gap-1 max-h-36 overflow-y-auto pr-1">
+            {SCREENS.map(([href, label]) => (
+              <Link
+                key={href}
+                href={href}
+                className="text-[11px] text-muted-foreground hover:text-primary hover:underline p-1 rounded hover:bg-muted/50 truncate"
+                title={label}
+              >
+                {label}
+              </Link>
+            ))}
+          </div>
+          <Button
+            type="button"
+            variant="destructive"
+            size="sm"
+            onClick={() => {
+              resetClock();
+              clear();
+              router.push("/");
+            }}
+            className="text-xs min-h-8 mt-1 font-semibold"
+          >
+            {t.demo.resetDemo}
+          </Button>
+        </div>
       </div>
     </Screen>
   );

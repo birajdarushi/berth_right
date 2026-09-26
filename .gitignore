@@ -44,4 +44,5 @@ next-env.d.ts
 
 # submission assets — not app source, not needed in the deploy or repo history
 *.mov
+scale_progress*.png
 /Berth_Right_All_UI_Screens/

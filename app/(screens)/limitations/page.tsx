@@ -50,7 +50,7 @@ export default function LimitationsPage() {
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <ShieldAlert className="size-5 text-primary" />
-            <h1 className="text-xl sm:text-2xl font-bold tracking-tight">{t.common.limitations}</h1>
+            <h1 className="text-xl sm:text-2xl font-bold tracking-tight font-heading">{t.common.limitations}</h1>
           </div>
           <Button
             render={
@@ -64,7 +64,7 @@ export default function LimitationsPage() {
             className="text-xs"
           />
         </div>
-        <p className="text-xs sm:text-sm text-muted-foreground">
+        <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
           {lang === "hi"
             ? "यह आरएसी आवंटन में सुधार का एक हैकाथॉन प्रोटोटाइप है। यह कोई आधिकारिक बुकिंग उत्पाद नहीं है।"
             : lang === "mr"
@@ -73,15 +73,15 @@ export default function LimitationsPage() {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-3 pt-1">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 pt-1">
         {items.map((item, idx) => (
           <div
             key={idx}
-            className="flex flex-col gap-1.5 rounded-lg border border-border/70 bg-card/60 p-3 shadow-2xs hover:border-primary/40 transition-colors"
+            className="flex flex-col gap-1.5 rounded-xl border border-border/80 bg-card p-3.5 paper-shadow hover:border-primary/40 transition-colors"
           >
             <div className="flex items-center gap-1.5 text-[11px] font-semibold text-primary">
-              <Info className="size-3" />
-              <span>#{idx + 1}</span>
+              <Info className="size-3.5" />
+              <span className="font-mono text-[10px] text-muted-foreground">{String(idx + 1).padStart(2, "0")}</span>
             </div>
             <p className="text-xs leading-relaxed text-foreground/85">{item}</p>
           </div>

@@ -43,12 +43,12 @@ export default function LoginPage() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5 items-start pt-2">
-        <div className="rounded-xl border-2 border-dashed border-fuchsia-400 bg-fuchsia-50/80 p-4 shadow-2xs">
-          <div className="flex items-center gap-1.5 text-fuchsia-700 font-bold text-sm">
-            <ShieldAlert className="size-4" />
-            <p>{lang === "hi" ? "मॉक ओटीपी — केवल डेमो" : lang === "mr" ? "मॉक ओटीपी — फक्त डेमो" : "MOCK OTP — DEMO ONLY"}</p>
+        <div className="rounded-xl border-2 border-dashed border-primary/30 bg-muted/20 p-5 paper-shadow">
+          <div className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-primary/10 border border-primary/20 text-primary font-mono font-bold text-xs uppercase tracking-wider">
+            <ShieldAlert className="size-3.5" />
+            <span>{lang === "hi" ? "मॉक ओटीपी — केवल डेमो" : lang === "mr" ? "मॉक ओटीपी — फक्त डेमो" : "MOCK OTP — DEMO ONLY"}</span>
           </div>
-          <p className="text-xs text-fuchsia-900 mt-1.5 leading-relaxed">
+          <p className="text-xs text-foreground/80 mt-2.5 leading-relaxed">
             {lang === "hi"
               ? "कोई वास्तविक फोन नंबर, एसएमएस या खाता नहीं है। कोई भी 6 अंकों का कोड काम करता है (उदा. 000000)।"
               : lang === "mr"

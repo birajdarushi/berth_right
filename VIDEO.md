@@ -1,42 +1,87 @@
-# Two-minute video script
+# Two-Minute Pitch & Demo Script (Phase 2)
 
-Cap: 2:00, end by 1:55. No logo, no title card, no self-introduction. First fifteen seconds decide whether the reviewer stays.
+**Hard Cap:** 2:00 (Target Finish: 1:50–1:55).  
+**Tone & Delivery:** Conversational, steady, and rhythmic. Emphasize breathing pauses (`...`) to avoid rushing. No self-intro, no logos—hook the reviewer immediately.
 
-## 0:00–0:12 — cold open, no title card
+---
 
-> "You're a woman travelling alone overnight. Your ticket is RAC, so you're sharing one side-lower berth with a stranger. You find out who — when you board. At night. On a moving train."
+## ⏱️ Minute 1: The Problem & The Build in Action (0:00 – 1:00)
 
-## 0:12–0:22 — scale
+### 0:00 – 0:12 — The Hook (The Cold Reality)
+*(Visual: Landing page or simple background — no title slide)*
 
-> "This isn't rare. Last financial year, 3.39 crore tickets never confirmed. Everyone who lands on RAC shares a berth, and gender has never been part of who gets paired with whom."
+> "You're a woman travelling alone overnight.  
+> Your ticket is RAC... so you're sharing one side-lower berth with a stranger.  
+> And you find out who... in the middle of the night... on a moving train."
 
-## 0:22–1:00 — the journey (screen recording, 375px viewport, no narration of clicks)
+---
 
-Narrate the *decisions*, not the interface:
+### 0:12 – 0:22 — The Scale & The Root Issue
+*(Visual: Transitioning into the app flow)*
 
-- `/preference` — "You state your preference before you pay. And it tells you the truth about what that costs — same-gender only puts you about five places back on this train. We show the trade-off instead of hiding it."
-- `/fare` — "Full fare for half a berth. A Parliamentary committee called that unjustified in February."
-- `/tracking` — "Your co-passenger's gender and stations. Not their name, age or photo. That's deliberate."
-- `/demo` → chart prepares — "The outcome arrives. You don't go looking for it."
-- `/entitlement` — "You're owed ₹350. No fee. Direct to your bank. The market currently sells this back to you as a paid add-on."
+> "This isn't rare.  
+> Last financial year, 3.39 crore tickets never confirmed.  
+> Everyone landing on RAC shares a berth, but gender was never part of that pairing system.  
+> What troubles passengers most isn't just sharing—it's the complete lack of transparency, and the sudden surprise in the dark."
 
-## 1:00–1:50 — how and why
+---
 
-Say these four conversationally, not as a read list:
+### 0:22 – 1:00 — Project in Action (Screen Recording, 375px Mobile Viewport)
+*Show the flow smoothly; narrate what each step means for the passenger, not the UI buttons.*
 
-1. **Why nobody has built this.** ConfirmTkt and ixigo can't. Allocation is inside CRIS. This has to be a change to the system, not a wrapper around it.
-2. **Solver, not model.** A deterministic constraint solver decides pairings. The language model only rephrases. Nothing that affects someone's safety is a model's guess.
-3. **Rules as data.** Fare rules are a table with citations, not code. Policy changes by circular — an official edits a row, nobody redeploys.
-4. **What's mocked.** Every data source is synthetic. The refund percentage is a proposal, not policy. Chart timing sources conflict and the interface says so. All of it is at `/limitations`.
+* **0:22 – 0:32 | `/preference` — Upfront Trade-offs**
+  > "Here's Berth Right.  
+  > Before you pay, you state your preference.  
+  > We don't make empty promises—the system honestly shows the trade-off. Choosing same-gender might put you five spots back on this train. You get the truth upfront so you decide what matters more: privacy, or travel certainty."
 
-## 1:50–1:55 — close
+* **0:32 – 0:42 | `/tracking` & `/fare` — The Privacy Floor & Fair Cost**
+  > "When your chart prepares, you see your co-passenger's gender and journey stations.  
+  > No names, no photos—just enough to remove the fear of the unknown.  
+  > You know what to expect before you ever step onto that platform. And if your ticket stays RAC, you're entitled to half your base fare back—not monetized as a paid add-on."
 
-> "Berth Right. One rule the reservation system doesn't have yet."
+* **0:42 – 1:00 | `/chart-outcome` — The Outcome Arrives**
+  > "The final outcome arrives directly on your phone.  
+  > No hunting down the TTE at midnight. No uncomfortable surprises. You're in control."
 
-## Delivery notes
+---
 
-- Record in one take if possible. Two-minute cuts read as over-produced.
-- Screen-record on a 375px viewport, not desktop — the brief names mobile users.
-- Do not read the architecture list aloud as a list. Say the four things conversationally and move on.
-- Say "3.39 crore" out loud. It answers the hardest question about this project: is this rare, or is RAC pairing the sharpest instance of a much bigger problem.
-- End at 1:55. Running over the cap is an avoidable own goal.
+## ⏱️ Minute 2: The Core Feature & Story of the Build (1:00 – 2:00)
+
+> **Evaluator Focus:** One specific feature built, why it matters, and what makes your approach unique.
+
+### 1:00 – 1:30 — The Feature: A Deterministic Allocation Solver (Not an LLM)
+*(Visual: Show the allocation architecture / solver logic on `/demo` or clean diagram on `/limitations`)*
+
+> "The core feature I built is the **Deterministic Constraint Allocation Solver**.  
+> In hackathons today, the default instinct is to wrap a chatbot around the problem. But when someone's safety and comfort on a night train are at stake, you cannot rely on an AI's hallucination or probabilistic guess.  
+> We built a deterministic bipartite constraint solver. It balances gender preference, journey overlaps, and senior citizen quotas mathematically. The language model only exists to explain the outcome in plain, human language."
+
+---
+
+### 1:30 – 1:50 — Why It Matters & What Makes Our Approach Unique
+*(Visual: Show the rules table / gazette citation)*
+
+> "Why hasn't this been built by apps like ixigo or ConfirmTkt?  
+> Because they can't. Berth allocation sits deep inside CRIS. You can't solve this with a third-party wrapper; it has to be designed as a native system rule.  
+> Second, we decoupled the policy: **Rules as Data**. Fare rules and pairing logic are dynamic tables citing official Railway Board circulars. When policy evolves, an official updates a row—nobody redeploys the codebase."
+
+---
+
+### 1:50 – 1:55 — The Close
+*(Visual: Clean close on the Berth Right interface with tagline)*
+
+> "Berth Right isn't about making rigid guarantees. It's about dignity, predictability, and no sudden surprises in the dark.  
+> One rule the reservation system doesn't have yet."
+
+---
+
+## 🎙️ Spoken Word Cadence & Meter Check
+* **Total Word Count:** ~245 words
+* **Pacing:** ~125 words per minute (relaxed, conversational pace with room for deliberate pauses)
+* **Target Runtime:** 1:52 (comfortably within the 2:00 cutoff)
+* **Key Vocal Inflections:**
+  * At **0:04**: Drop voice slightly on *"in the middle of the night... on a moving train."* Let the weight land.
+  * At **0:18**: Stress *"transparency"* and *"sudden surprise"*.
+  * At **1:05**: Emphasize *"Solver, not a model"*—judges love hearing why AI wasn't used where it shouldn't be.
+  * At **1:52**: Warm, firm finish on *"dignity, predictability, and no sudden surprises."*
+

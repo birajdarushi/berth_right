@@ -82,13 +82,63 @@ export default function BoardingPage() {
           </Button>
         </div>
 
-        {/* Right Column: Terms & ExplainBlock */}
+        {/* Right Column: Ticket Classification Guide & Plain Language Note */}
         <div className="flex flex-col gap-3 md:col-span-6">
-          <div className="flex flex-col gap-1">
-            <Term id="RAC" />
-            <Term id="GNWL" />
-            <Term id="RLWL" />
-            <Term id="PQWL" />
+          <div className="rounded-xl border border-border/80 bg-muted/20 p-4 paper-shadow">
+            <div className="flex items-center justify-between pb-2 mb-2 border-b border-border/60">
+              <span className="text-xs font-bold uppercase tracking-wider font-mono text-foreground">
+                {lang === "hi" ? "टिकट प्रकार और यात्रा नियम" : lang === "mr" ? "तिकीट प्रकार आणि प्रवासाचे नियम" : "Ticket Status Comparison"}
+              </span>
+              <span className="text-[10px] text-muted-foreground font-mono bg-card px-1.5 py-0.5 rounded border border-border/60">
+                Indian Railways Rules
+              </span>
+            </div>
+
+            <div className="flex flex-col gap-2">
+              <div className="p-2.5 rounded-lg bg-card border border-border/80">
+                <div className="flex items-center justify-between mb-1">
+                  <span className="font-mono font-bold text-xs text-primary">RAC (Reservation Against Cancellation)</span>
+                  <span className="text-[10px] font-semibold text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200">
+                    {lang === "hi" ? "यात्रा मान्य" : lang === "mr" ? "प्रवास वैध" : "Boarding Allowed"}
+                  </span>
+                </div>
+                <p className="text-xs text-muted-foreground leading-relaxed">
+                  {lang === "hi"
+                    ? "सीट आरक्षित है (साझा साइड-लोअर बर्थ)। आप वैध रूप से ट्रेन में यात्रा कर सकते हैं।"
+                    : lang === "mr"
+                    ? "जागा आरक्षित आहे (सामायिक साइड-लोअर बर्थ). आपण गाडीत चढू शकता."
+                    : "Guaranteed travel on a shared side-lower berth. Legally permitted to board."}
+                </p>
+              </div>
+
+              <div className="p-2.5 rounded-lg bg-card border border-border/80">
+                <div className="flex items-center justify-between mb-1">
+                  <span className="font-mono font-bold text-xs text-muted-foreground">GNWL / RLWL / PQWL (Waitlists)</span>
+                  <span className="text-[10px] font-semibold text-rose-700 bg-rose-50 px-1.5 py-0.5 rounded border border-rose-200">
+                    {lang === "hi" ? "चढ़ना वर्जित" : lang === "mr" ? "चढण्यास बंदी" : "Cannot Board"}
+                  </span>
+                </div>
+                <p className="text-xs text-muted-foreground leading-relaxed">
+                  {lang === "hi"
+                    ? "ई-टिकट वेटलिस्ट कन्फर्म न होने पर स्वतः रद्द हो जाता है। ट्रेन में चढ़ने पर बिना टिकट माना जाएगा और जुर्माना लगेगा।"
+                    : lang === "mr"
+                    ? "कन्फर्म न झालेले वेटलिस्ट ई-तिकीट आपोआप रद्द होते. गाडीत चढल्यास विनातिकीट मानून दंड आकारला जातो."
+                    : "Unconfirmed e-tickets auto-cancel after charting. Boarding is treated as ticketless travel with a penalty."}
+                </p>
+              </div>
+
+              <details className="text-xs text-muted-foreground pt-1">
+                <summary className="cursor-pointer font-medium hover:text-foreground">
+                  {lang === "hi" ? "+ पूर्ण विवरण (अंग्रेजी, हिन्दी, मराठी)" : lang === "mr" ? "+ तपशीलवार स्पष्टीकरण" : "+ Detailed Acronym Glossary (GNWL, RLWL, PQWL)"}
+                </summary>
+                <div className="mt-2 flex flex-col gap-1">
+                  <Term id="RAC" />
+                  <Term id="GNWL" />
+                  <Term id="RLWL" />
+                  <Term id="PQWL" />
+                </div>
+              </details>
+            </div>
           </div>
 
           <ExplainBlock

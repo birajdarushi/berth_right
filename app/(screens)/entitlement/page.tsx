@@ -72,47 +72,56 @@ export default function EntitlementPage() {
 
       {result && result.amount > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6 items-start">
-          {/* Left Column: Refund Banner & Comparison Card */}
+          {/* Left Column: Settlement Voucher & Concise Comparison */}
           <div className="flex flex-col gap-3.5">
-            <div className="flex flex-col items-center gap-2 rounded-xl border-2 border-emerald-300 bg-emerald-50/80 p-5 text-center shadow-xs">
-              <span className="flex size-11 items-center justify-center rounded-full bg-emerald-100 text-emerald-700">
-                <IndianRupee className="size-6" />
-              </span>
-              <p className="text-base sm:text-lg font-bold text-emerald-900 leading-tight">
+            <div className="rounded-xl border border-primary/20 bg-muted/20 p-5 paper-shadow flex flex-col gap-3">
+              <div className="flex items-center justify-between pb-2 border-b border-border/60">
+                <span className="text-[10px] font-mono uppercase tracking-wider font-bold text-primary">
+                  [SETTLEMENT ENTITLEMENT VOUCHER]
+                </span>
+                <span className="text-[10px] font-mono text-muted-foreground bg-card px-2 py-0.5 rounded border border-border/60">
+                  CRIS PRS PROPOSAL
+                </span>
+              </div>
+
+              <div className="flex items-baseline gap-2">
+                <span className="text-3xl font-bold font-mono text-foreground">₹{result.amount}</span>
+                <span className="text-xs font-semibold text-primary">
+                  {lang === "hi" ? "स्वतः बैंक क्रेडिट" : lang === "mr" ? "थेट बँक परतावा" : "Direct Bank Entitlement"}
+                </span>
+              </div>
+
+              <p className="text-xs text-foreground/85 leading-relaxed">
                 {lang === "hi"
-                  ? `आपका ₹${result.amount} का रिफंड बनता है। कोई शुल्क नहीं। सीधे आपके बैंक में।`
+                  ? `आपकी यात्रा साझा आरएसी बर्थ पर रही। 50% किराए का स्वतः रिफंड बनता है (नियम ${result.ruleId})।`
                   : lang === "mr"
-                  ? `आपल्याला ₹${result.amount} परतावा मिळणे बाकी आहे. कोणतेही शुल्क नाही. थेट आपल्या बँकेत.`
-                  : `You are owed ₹${result.amount}. No fee. Direct to your bank.`}
+                  ? `आपला प्रवास सामायिक आरएसी बर्थवर झाला. ५०% भाड्याचा परतावा पात्र आहे (नियम ${result.ruleId}).`
+                  : `Your journey remained on a shared RAC berth. You are entitled to an automatic 50% fare refund (Rule ${result.ruleId}).`}
               </p>
-              <p className="text-[11px] text-emerald-800/80 mt-0.5">
-                {lang === "hi"
-                  ? `प्रस्ताव, वर्तमान नीति नहीं — नियम "${result.ruleId}". ${result.citation}`
-                  : lang === "mr"
-                  ? `प्रस्ताव, सध्याचे धोरण नाही — नियम "${result.ruleId}". ${result.citation}`
-                  : `PROPOSAL, NOT CURRENT POLICY — rule "${result.ruleId}". ${result.citation}`}
-              </p>
+
+              <div className="ticket-perforation pt-2 text-[11px] text-muted-foreground font-mono">
+                {result.citation}
+              </div>
             </div>
 
-            <Card className="gap-2 py-3.5 shadow-xs">
-              <CardContent className="flex flex-col gap-1.5 px-4 text-xs sm:text-sm">
-                <p className="font-semibold text-foreground flex items-center gap-1.5">
-                  <ShieldCheck className="size-4 text-primary" />
-                  {lang === "hi"
-                    ? "निजी ऐप्स से तुलना करें"
-                    : lang === "mr"
-                    ? "खाजगी अ‍ॅप्सशी तुलना करा"
-                    : "Compare with the private market"}
-                </p>
-                <p className="text-muted-foreground leading-relaxed text-xs">
-                  {lang === "hi"
-                    ? "सशुल्क 'रिफंड एश्योरेंस' सुविधाएं पहले खरीदी जाती हैं, प्रायः ऐप के अपने शुल्क को काटकर इन-ऐप वॉलेट में क्रेडिट की जाती हैं और 10-16 दिन बाद आती हैं। यह अधिकार: कोई शुल्क नहीं, कोई वॉलेट नहीं, सीधे बैंक में जमा।"
-                    : lang === "mr"
-                    ? "सशुल्क 'रिफंड अ‍ॅश्युरन्स' अ‍ॅड-ऑन्स आधी विकत घेतले जातात, अनेकदा अ‍ॅपचे स्वतःचे शुल्क वजा करून इन-अ‍ॅप वॉलेटमध्ये जमा होतात आणि १०-१६ दिवसांनी मिळतात. हा अधिकार: कोणतेही शुल्क नाही, वॉलेट नाही, थेट बँकेत जमा."
-                    : "Paid \"refund assurance\" add-ons are bought upfront, often pay out the standard refund minus the app's own fee, credited to an in-app wallet rather than a bank account, and frequently arrive 10–16 days later. This entitlement: no fee, no wallet, notionally credited straight to your bank."}
-                </p>
-              </CardContent>
-            </Card>
+            {/* Concise Comparison Box */}
+            <div className="rounded-xl border border-border/80 bg-card p-4 paper-shadow">
+              <div className="flex items-center gap-1.5 pb-2 mb-2 border-b border-border/60 text-xs font-bold text-foreground">
+                <ShieldCheck className="size-4 text-primary" />
+                <span>{lang === "hi" ? "बाज़ार बनाम जनहित अधिकार" : lang === "mr" ? "खाजगी बाजार विरूद्ध हक्क" : "Market Add-on vs. Statutory Entitlement"}</span>
+              </div>
+
+              <div className="grid grid-cols-2 gap-2 text-xs">
+                <div className="p-2 rounded bg-muted/40 border border-border/60">
+                  <p className="font-semibold text-primary text-[11px] uppercase tracking-wide">Berth Right</p>
+                  <p className="text-muted-foreground mt-0.5 leading-snug">₹0 Fee · Direct to bank · Automated</p>
+                </div>
+                <div className="p-2 rounded bg-muted/20 border border-border/60">
+                  <p className="font-semibold text-muted-foreground text-[11px] uppercase tracking-wide">Private Aggregators</p>
+                  <p className="text-muted-foreground mt-0.5 leading-snug">Paid upfront · App wallet · 10–16 days</p>
+                </div>
+              </div>
+            </div>
           </div>
 
           {/* Right Column: ExplainBlock & Assert Button */}
@@ -126,8 +135,8 @@ export default function EntitlementPage() {
               onClick={() => setCredited(true)}
               disabled={credited}
               size="lg"
-              className={`min-h-11 font-medium transition-all ${
-                credited ? "bg-emerald-600 text-white" : ""
+              className={`min-h-11 font-semibold transition-all shadow-xs ${
+                credited ? "bg-primary/90 text-primary-foreground" : ""
               }`}
             >
               {credited ? (
@@ -137,14 +146,14 @@ export default function EntitlementPage() {
                     ? "सांकेतिक रूप से जमा (डेमो)"
                     : lang === "mr"
                     ? "सांकेतिक जमा केले (डेमो)"
-                    : "Notionally credited (demo)"}
+                    : "Notionally credited to bank (demo)"}
                 </span>
               ) : (
                 lang === "hi"
                   ? "रिफंड का दावा करें"
                   : lang === "mr"
                   ? "परताव्याचा हक्क मागा"
-                  : "Assert entitlement"
+                  : "Assert entitlement credit"
               )}
             </Button>
           </div>

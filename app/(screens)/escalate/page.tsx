@@ -61,61 +61,63 @@ export default function EscalatePage() {
       <div className="grid grid-cols-1 md:grid-cols-12 gap-5 md:gap-8 items-start">
         {/* Left Column: Input Form & Button */}
         <div className="flex flex-col gap-3.5 md:col-span-6">
-          <div className="flex flex-col gap-1.5">
-            <Label htmlFor="reason" className="text-xs font-semibold">{t.escalate.descriptionLabel}</Label>
-            <Textarea
-              id="reason"
-              rows={4}
-              value={reason}
-              onChange={(e) => setReason(e.target.value)}
-              className="text-xs sm:text-sm resize-none"
-            />
-          </div>
+          <div className="rounded-xl border border-border/80 bg-card p-4 sm:p-5 paper-shadow flex flex-col gap-3">
+            <div className="flex flex-col gap-1.5">
+              <Label htmlFor="reason" className="text-xs font-bold uppercase font-mono tracking-wider text-muted-foreground">
+                {t.escalate.descriptionLabel}
+              </Label>
+              <Textarea
+                id="reason"
+                rows={4}
+                value={reason}
+                onChange={(e) => setReason(e.target.value)}
+                className="text-xs sm:text-sm resize-none bg-background border-border/80"
+              />
+            </div>
 
-          <Button onClick={escalate} disabled={loading} size="lg" className="min-h-11 gap-1.5 font-medium">
-            <Send className="size-4" />
-            {loading
-              ? (lang === "hi" ? "भेजा जा रहा है..." : lang === "mr" ? "पाठवत आहे..." : "Sending…")
-              : (lang === "hi" ? "शिकायत दर्ज करें" : lang === "mr" ? "तक्रार नोंदवा" : "Escalate now")}
-          </Button>
+            <Button onClick={escalate} disabled={loading} size="lg" className="min-h-11 gap-1.5 font-semibold shadow-xs">
+              <Send className="size-4" />
+              {loading
+                ? (lang === "hi" ? "भेजा जा रहा है..." : lang === "mr" ? "पाठवत आहे..." : "Sending…")
+                : (lang === "hi" ? "शिकायत दर्ज करें" : lang === "mr" ? "तक्रार नोंदवा" : "Log Grievance Record")}
+            </Button>
+          </div>
         </div>
 
         {/* Right Column: Record receipt / status */}
         <div className="flex flex-col gap-3 md:col-span-6">
           {record ? (
-            <Card className="gap-2 py-4 shadow-xs border-primary/40 bg-accent/20">
-              <CardContent className="flex flex-col gap-2.5 px-4 text-xs sm:text-sm">
-                <div className="flex items-center gap-1.5 font-semibold text-emerald-700">
-                  <CheckCircle2 className="size-4" />
-                  <span>
-                    {lang === "hi" ? "शिकायत सफलतापूर्वक दर्ज" : lang === "mr" ? "तक्रार यशस्वीरित्या नोंदवली" : "Grievance Logged"}
-                  </span>
-                </div>
-                <div className="flex justify-between border-b pb-2 text-xs">
-                  <span className="text-muted-foreground">{lang === "hi" ? "शिकायत आईडी" : lang === "mr" ? "तक्रार आयडी" : "Escalation ID"}:</span>
-                  <span className="font-mono font-bold text-foreground">{String(record.escalationId)}</span>
-                </div>
-                <div className="flex justify-between border-b pb-2 text-xs">
-                  <span className="text-muted-foreground">{t.common.status}:</span>
-                  <span className="font-medium text-foreground">{String(record.status)}</span>
-                </div>
-                <div className="rounded-md border border-border/80 bg-background/80 p-3 text-xs leading-relaxed text-muted-foreground">
-                  {(record.mockedTteReceipt as { note: string }).note}
-                </div>
-              </CardContent>
-            </Card>
+            <div className="rounded-xl border border-primary/20 bg-muted/20 p-5 paper-shadow flex flex-col gap-3 text-xs sm:text-sm">
+              <div className="flex items-center justify-between pb-2 border-b border-border/60">
+                <span className="text-[10px] font-mono font-bold uppercase text-primary tracking-wider">
+                  [INCIDENT ESCALATION RECORD]
+                </span>
+                <span className="text-[10px] font-mono text-muted-foreground bg-card px-2 py-0.5 rounded border border-border/60">
+                  {String(record.status)}
+                </span>
+              </div>
+
+              <div className="flex justify-between text-xs font-mono">
+                <span className="text-muted-foreground">{lang === "hi" ? "शिकायत आईडी" : lang === "mr" ? "तक्रार आयडी" : "Incident Ref"}:</span>
+                <span className="font-bold text-primary">{String(record.escalationId)}</span>
+              </div>
+
+              <div className="ticket-perforation pt-3 text-xs leading-relaxed text-foreground/80">
+                {(record.mockedTteReceipt as { note: string }).note}
+              </div>
+            </div>
           ) : (
-            <div className="flex flex-col gap-2 rounded-xl border border-dashed border-border p-5 text-xs text-muted-foreground bg-muted/20">
-              <div className="flex items-center gap-1.5 font-medium text-foreground">
+            <div className="flex flex-col gap-2 rounded-xl border border-dashed border-border/80 bg-muted/20 p-5 text-xs text-muted-foreground paper-shadow">
+              <div className="flex items-center gap-1.5 font-bold font-heading text-foreground">
                 <ShieldAlert className="size-4 text-primary" />
-                <span>{lang === "hi" ? "त्वरित सहायता प्रोटोकॉल" : lang === "mr" ? "त्वरित मदत प्रोटोकॉल" : "Immediate Assistance"}</span>
+                <span>{lang === "hi" ? "त्वरित सहायता प्रोटोकॉल" : lang === "mr" ? "त्वरित मदत प्रोटोकॉल" : "Immediate Assistance Protocol"}</span>
               </div>
               <p className="leading-relaxed">
                 {lang === "hi"
                   ? "शिकायत दर्ज करने पर कोच टीटीई को डिजिटल अलर्ट भेजा जाता है और रेलमदद पर टिकट दर्ज होता है।"
                   : lang === "mr"
                   ? "तक्रार नोंदवल्यावर कोच टीटीईला डिजिटल सूचना पाठवली जाते आणि रेलमददवर नोंद होते."
-                  : "Logging this grievance sends a priority alert to the onboard TTE handheld terminal and generates a verifiable RailMadad ticket."}
+                  : "Logging this grievance generates a structured record for onboard TTE handheld terminals and logs a reference record."}
               </p>
             </div>
           )}

@@ -55,7 +55,7 @@ function RacExplainerPageInner() {
             )}
           </p>
 
-          <div className="overflow-hidden rounded-lg border border-border bg-card shadow-xs">
+          <div className="overflow-hidden rounded-xl border border-border/80 bg-card p-1.5 paper-shadow">
             <Image
               src="/brand/rac-shared-berth.jpg"
               alt="Two passengers sharing a single narrow side-lower RAC sleeper berth overnight on an Indian Railways train"
@@ -65,16 +65,16 @@ function RacExplainerPageInner() {
               className="w-full h-auto object-cover rounded-lg"
             />
           </div>
-          <p className="-mt-1.5 text-[11px] text-muted-foreground">{t.home.diagramCaption}</p>
+          <p className="-mt-1 text-[11px] text-muted-foreground font-mono">{t.home.diagramCaption}</p>
         </div>
 
         {/* Right Column: Gender Solution, ExplainBlock, & CTA */}
         <div className="flex flex-col gap-4">
-          <div className="rounded-lg border border-border/80 bg-accent/30 p-3.5 text-xs sm:text-sm leading-relaxed text-foreground/90">
-            <p className="font-semibold text-foreground mb-1">
+          <div className="rounded-xl border border-border/80 bg-muted/20 p-4 paper-shadow text-xs sm:text-sm leading-relaxed text-foreground/90">
+            <p className="font-bold font-heading text-foreground mb-1.5">
               {lang === "hi" ? "जेंडर-अवेयर पेयरिंग क्यों?" : lang === "mr" ? "जेंडर-अवेअर पेअरिंग का?" : "Why Gender-Aware Pairing?"}
             </p>
-            <p>
+            <p className="text-muted-foreground leading-relaxed">
               {lang === "hi"
                 ? "वर्तमान में, उस बर्थ को साझा करने वाले दो यात्रियों को लिंग का विचार किए बिना जोड़ा जाता है। बर्थ राइट एक जेंडर-अवेयर पेयरिंग चरण जोड़ता है ताकि अकेले यात्रा करने वाली महिला को रातभर किसी अज्ञात पुरुष यात्री के साथ न रहना पड़े।"
                 : lang === "mr"
@@ -91,7 +91,7 @@ function RacExplainerPageInner() {
           <Button
             onClick={() => router.push(`/preference?trainId=${trainId}`)}
             size="lg"
-            className="min-h-11 gap-1.5 font-medium"
+            className="min-h-11 gap-1.5 font-semibold shadow-xs"
           >
             {t.common.continue}
             <ArrowRight className="size-4" />

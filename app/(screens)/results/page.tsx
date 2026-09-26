@@ -67,36 +67,34 @@ function ResultsPageInner() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5">
         {trains.map((tItem) => (
-          <Card
+          <div
             key={tItem.number}
             role="button"
             tabIndex={0}
             onClick={() => router.push(`/rac-explainer?trainId=${tItem.number}`)}
-            className="cursor-pointer gap-2 py-3.5 shadow-2xs transition-all hover:border-primary hover:shadow-xs hover:bg-accent/40"
+            className="cursor-pointer rounded-xl border border-border/80 bg-card p-4 paper-shadow transition-all hover:border-primary/80 hover:shadow-md flex flex-col gap-2.5"
           >
-            <CardContent className="flex flex-col gap-2 px-4">
-              <div className="flex items-start justify-between gap-2">
-                <span className="font-semibold text-sm sm:text-base text-foreground leading-snug">{tItem.name}</span>
-                <span className="shrink-0 font-mono text-xs font-medium text-muted-foreground">#{tItem.number}</span>
-              </div>
-              <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
-                <span>{tItem.from} → {tItem.to}</span>
-                <span>·</span>
-                <span className="flex items-center gap-1">
-                  {tItem.isOvernight ? <Moon className="size-3.5 text-indigo-500" /> : <Sun className="size-3.5 text-amber-500" />}
-                  {tItem.isOvernight
-                    ? (lang === "hi" ? "रात की यात्रा" : lang === "mr" ? "रात्रीचा प्रवास" : "Overnight")
-                    : (lang === "hi" ? "दिन की यात्रा" : lang === "mr" ? "दिवसाचा प्रवास" : "Day journey")}
-                </span>
-              </div>
-              <div className="flex items-center justify-between gap-2 pt-1 border-t border-border/40 mt-1">
-                <Badge variant="secondary" className="text-[11px] text-amber-800 bg-amber-50/80 border-amber-200">
-                  {tItem.racAvailability.statusLine}
-                </Badge>
-                <ChevronRight className="size-4 shrink-0 text-muted-foreground" />
-              </div>
-            </CardContent>
-          </Card>
+            <div className="flex items-start justify-between gap-2 pb-1.5 border-b border-border/50">
+              <span className="font-bold text-sm sm:text-base text-foreground font-heading leading-snug">{tItem.name}</span>
+              <span className="shrink-0 font-mono text-xs font-bold text-primary bg-primary/10 px-1.5 py-0.5 rounded">{tItem.number}</span>
+            </div>
+            <div className="flex items-center gap-1.5 text-xs text-muted-foreground font-mono">
+              <span className="font-semibold text-foreground">{tItem.from} → {tItem.to}</span>
+              <span>·</span>
+              <span className="flex items-center gap-1 font-sans">
+                {tItem.isOvernight ? <Moon className="size-3.5 text-muted-foreground" /> : <Sun className="size-3.5 text-muted-foreground" />}
+                {tItem.isOvernight
+                  ? (lang === "hi" ? "रात की यात्रा" : lang === "mr" ? "रात्रीचा प्रवास" : "Overnight")
+                  : (lang === "hi" ? "दिन की यात्रा" : lang === "mr" ? "दिवसाचा प्रवास" : "Day journey")}
+              </span>
+            </div>
+            <div className="flex items-center justify-between gap-2 pt-2 border-t border-border/50 mt-auto">
+              <span className="text-[11px] text-foreground/80 leading-tight">
+                {tItem.racAvailability.statusLine}
+              </span>
+              <ChevronRight className="size-4 shrink-0 text-primary" />
+            </div>
+          </div>
         ))}
       </div>
     </Screen>

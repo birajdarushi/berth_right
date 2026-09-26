@@ -71,36 +71,38 @@ export default function ConfirmationPage() {
 
         {/* Right Column: Ticket Card */}
         <div className="flex flex-col gap-3 md:col-span-6">
-          <Card className="gap-2 py-4 shadow-xs border-emerald-200/80 bg-emerald-50/30">
-            <CardContent className="flex flex-col gap-2.5 px-4 text-sm">
-              <div className="flex items-center justify-between border-b pb-2">
-                <div>
-                  <span className="block text-[11px] text-muted-foreground">
-                    {lang === "hi"
-                      ? "सिंथेटिक पीएनआर (काल्पनिक)"
-                      : lang === "mr"
-                      ? "सिंथेटिक पीएनआर (काल्पनिक)"
-                      : "Synthetic PNR (Demo)"}
-                  </span>
-                  <span className="font-mono text-lg font-bold tracking-wider">{booking.pnr}</span>
-                </div>
-                <Badge variant="secondary" className="font-semibold text-xs px-2.5 py-0.5">
-                  {booking.status}
-                  {booking.racPosition ? ` · pos ${booking.racPosition}` : ""}
-                </Badge>
+          <div className="rounded-xl border border-border/80 bg-card p-5 paper-shadow flex flex-col gap-3">
+            <div className="flex items-center justify-between pb-2 border-b border-border/60">
+              <div>
+                <span className="block text-[10px] text-muted-foreground font-mono uppercase tracking-wider">
+                  {lang === "hi"
+                    ? "सिंथेटिक पीएनआर (काल्पनिक)"
+                    : lang === "mr"
+                    ? "सिंथेटिक पीएनआर (काल्पनिक)"
+                    : "Synthetic PNR (Demo)"}
+                </span>
+                <span className="font-mono text-xl font-bold tracking-widest text-primary">{booking.pnr}</span>
               </div>
+              <span className="px-2 py-0.5 rounded bg-primary/10 border border-primary/20 text-primary font-mono font-bold text-[10px] uppercase">
+                {booking.status}
+                {booking.racPosition ? ` · pos ${booking.racPosition}` : ""}
+              </span>
+            </div>
 
-              <div className="flex items-center gap-1.5 font-medium text-foreground text-sm">
-                <TrainTrack className="size-4 text-primary" />
-                {booking.train.name} · #{booking.train.number}
-              </div>
+            <div className="flex items-center gap-1.5 font-bold font-heading text-foreground text-sm">
+              <TrainTrack className="size-4 text-primary" />
+              {booking.train.name} · {booking.train.number}
+            </div>
 
-              <div className="flex items-center gap-1 text-xs text-muted-foreground">
-                <MapPin className="size-3.5 text-muted-foreground" />
-                {booking.train.from} → {booking.train.to}
-              </div>
-            </CardContent>
-          </Card>
+            <div className="flex items-center gap-1 text-xs text-muted-foreground font-mono">
+              <MapPin className="size-3.5 text-muted-foreground" />
+              {booking.train.from} → {booking.train.to}
+            </div>
+
+            <div className="ticket-perforation pt-3 text-[11px] text-muted-foreground leading-relaxed">
+              Ticket issued under RAC allocation rules. Side-lower berth shared with paired passenger.
+            </div>
+          </div>
         </div>
       </div>
     </Screen>

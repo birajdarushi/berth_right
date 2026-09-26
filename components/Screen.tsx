@@ -1,4 +1,4 @@
-// Shared page container: full-width on mobile, a wide, balanced card on desktop to avoid needless vertical scrolling.
+// Shared page container: centered, paper-native index card canvas with generous whitespace and high contrast.
 export default function Screen({
   children,
   className = "",
@@ -7,9 +7,9 @@ export default function Screen({
   className?: string;
 }) {
   return (
-    <main className="mx-auto flex w-full max-w-5xl flex-1 flex-col justify-center px-4 py-3 sm:py-4 md:py-6">
+    <main className="mx-auto flex w-full max-w-4xl flex-1 flex-col justify-center px-3 py-3 sm:px-4 sm:py-6">
       <div
-        className={`flex w-full flex-col gap-3.5 sm:gap-4 md:rounded-xl md:border md:border-border md:bg-card/90 md:p-6 md:shadow-xs backdrop-blur-xs ${className}`}
+        className={`flex w-full flex-col gap-4 rounded-xl border border-border/80 bg-card p-4 sm:p-6 md:p-7 paper-shadow transition-shadow ${className}`}
       >
         {children}
       </div>

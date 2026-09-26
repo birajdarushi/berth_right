@@ -123,21 +123,50 @@ function FarePageInner() {
 
           {/* Right Column: Policy notice & CTA */}
           <div className="flex flex-col gap-4">
-            <div className="flex gap-2.5 rounded-lg border border-emerald-200 bg-emerald-50/90 p-3.5 text-xs text-emerald-950 leading-relaxed shadow-2xs">
-              <Info className="size-4 shrink-0 translate-y-0.5 text-emerald-700" />
-              <p>
-                {lang === "hi"
-                  ? `नीतिगत प्रस्ताव, वर्तमान नियम नहीं: यदि आप चार्ट बनने तक आरएसी स्थिति में रहते हैं और पूरी बर्थ नहीं मिलती है, तो आपके किराए का ${Math.round(RAC_ENTITLEMENT_REFUND_RATIO * 100)}% स्वचालित रूप से वापस कर दिया जाएगा। फरवरी 2026 की संसदीय स्थायी समिति की सिफारिश पर आधारित — वर्तमान में भारतीय रेलवे द्वारा लागू नहीं।`
-                  : lang === "mr"
-                  ? `धोरणात्मक प्रस्ताव, सध्याचा नियम नाही: जर तुम्ही चार्ट तयार होईपर्यंत आरएसी स्थितीत राहिलात आणि पूर्ण बर्थ मिळाली नाही, तर तुमच्या भाड्याचा ${Math.round(RAC_ENTITLEMENT_REFUND_RATIO * 100)}% भाग आपोआप परत केला जाईल. फेब्रुवारी २०२६ च्या संसदीय स्थायी समितीच्या शिफारशीवर आधारित — सध्या भारतीय रेल्वेने लागू केलेले नाही.`
-                  : `PROPOSAL, NOT CURRENT POLICY: if you hold RAC status through chart preparation and never get a full berth, ${Math.round(RAC_ENTITLEMENT_REFUND_RATIO * 100)}% of your fare would be refunded automatically. Based on a February 2026 Parliamentary Standing Committee recommendation — not implemented by Indian Railways today.`}
-              </p>
+            <div className="rounded-xl border border-primary/20 bg-muted/20 p-4 paper-shadow text-xs leading-relaxed">
+              <div className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-primary/10 border border-primary/20 text-primary font-mono font-bold text-[10px] uppercase tracking-wider mb-2">
+                <Info className="size-3" />
+                <span>{lang === "hi" ? "संसदीय समिति की सिफारिश (फरवरी 2026)" : lang === "mr" ? "संसदीय समितीची शिफारस (फेब्रुवारी २०२६)" : "Parliamentary Committee Finding (Feb 2026)"}</span>
+              </div>
+
+              <div className="flex flex-col gap-2 mt-1 text-foreground/85">
+                <div className="flex items-start gap-2">
+                  <span className="font-mono text-primary font-bold">•</span>
+                  <p>
+                    {lang === "hi"
+                      ? `यदि चार्ट बनने तक आपको पूरी बर्थ नहीं मिलती है, तो ₹${booking.fare.refundablePortion} (${Math.round(RAC_ENTITLEMENT_REFUND_RATIO * 100)}%) सीधे आपके बैंक खाते में वापस आएगा।`
+                      : lang === "mr"
+                      ? `चार्ट तयार होईपर्यंत पूर्ण बर्थ न मिळाल्यास, ₹${booking.fare.refundablePortion} (${Math.round(RAC_ENTITLEMENT_REFUND_RATIO * 100)}%) थेट बँक खात्यात परत जमा होतील.`
+                      : `If your berth never confirms and you share an RAC berth overnight, ₹${booking.fare.refundablePortion} (${Math.round(RAC_ENTITLEMENT_REFUND_RATIO * 100)}%) is refunded directly to your bank.`}
+                  </p>
+                </div>
+                <div className="flex items-start gap-2">
+                  <span className="font-mono text-primary font-bold">•</span>
+                  <p>
+                    {lang === "hi"
+                      ? "कोई टीडीआर फॉर्म या क्लर्केज शुल्क नहीं — यह आपका अधिकार है, कोई सशुल्क 'रिफंड इंश्योरेंस' नहीं।"
+                      : lang === "mr"
+                      ? "कोणताही टीडीआर फॉर्म किंवा शुल्क नाही — हा तुमचा हक्क आहे, कोणतेही सशुल्क इन्शुरन्स नाही."
+                      : "No TDR claim forms, no clerkage fee — treated as an automatic entitlement, not a paid add-on."}
+                  </p>
+                </div>
+                <div className="flex items-start gap-2">
+                  <span className="font-mono text-primary font-bold">•</span>
+                  <p className="text-[11px] text-muted-foreground">
+                    {lang === "hi"
+                      ? "स्थिति: नीतिगत प्रस्ताव, वर्तमान में भारतीय रेलवे द्वारा परीक्षण हेतु।"
+                      : lang === "mr"
+                      ? "स्थिती: धोरणात्मक प्रस्ताव, भारतीय रेल्वेसाठी सुचवलेला बदल."
+                      : "Status: Proposed reform to CRIS PRS rules. Labelled as a design proposal."}
+                  </p>
+                </div>
+              </div>
             </div>
 
             <Button
               onClick={() => router.push(`/boarding?trainId=${trainId}`)}
               size="lg"
-              className="min-h-11 gap-1.5 font-medium"
+              className="min-h-11 gap-1.5 font-medium shadow-xs"
             >
               {t.common.continue}
               <ArrowRight className="size-4" />

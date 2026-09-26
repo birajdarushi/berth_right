@@ -51,9 +51,9 @@ export default function SearchPage() {
 
   return (
     <main className="mx-auto flex w-full max-w-5xl flex-1 flex-col justify-center px-4 py-4 md:py-6 gap-6">
-      <div className="grid w-full gap-6 md:grid-cols-2 md:items-center md:gap-10">
-        <div className="flex flex-col gap-3.5">
-          <h1 className="text-2xl leading-tight font-bold tracking-tight text-balance sm:text-3xl lg:text-4xl">
+      <div className="grid w-full gap-6 md:grid-cols-12 md:items-start md:gap-8">
+        <div className="flex flex-col gap-3.5 md:col-span-7">
+          <h1 className="text-2xl leading-tight font-bold tracking-tight text-balance sm:text-3xl lg:text-4xl font-heading text-foreground">
             {t.home.heroTitlePrefix}{" "}
             <span className="text-primary">{t.home.heroTitleHighlight}</span>
           </h1>
@@ -61,83 +61,84 @@ export default function SearchPage() {
             {t.home.heroDescription}
           </p>
 
-          <div className="overflow-hidden rounded-lg border border-border max-w-md">
+          <div className="overflow-hidden rounded-xl border border-border/80 bg-card p-2 paper-shadow max-w-md">
             <Image
               src="/brand/rac-explainer.png"
               alt="Scale diagram of a side-lower berth: 1.8 metres long, 0.6 metres wide, shared by two adults"
               width={1672}
               height={941}
               priority
-              className="w-full h-auto object-contain"
+              className="w-full h-auto object-contain rounded-lg"
             />
           </div>
-          <p className="-mt-2 text-[11px] text-muted-foreground">{t.home.diagramCaption}</p>
+          <p className="-mt-1 text-[11px] text-muted-foreground font-mono">{t.home.diagramCaption}</p>
         </div>
 
-        <Card className="relative gap-4 overflow-hidden py-5 shadow-sm">
-          <CardContent className="flex flex-col gap-3.5 px-5">
-            <h2 className="text-base font-semibold">{t.home.searchCardTitle}</h2>
+        <div className="rounded-xl border border-border/80 bg-card p-5 paper-shadow md:col-span-5 flex flex-col gap-4">
+          <div className="pb-2 border-b border-border/60">
+            <h2 className="text-base font-bold font-heading text-foreground">{t.home.searchCardTitle}</h2>
+            <p className="text-[11px] text-muted-foreground">Select route and travel date</p>
+          </div>
 
-            <div className="flex flex-col gap-1.5">
-              <Label htmlFor="route" className="text-xs">{t.home.routeLabel}</Label>
-              <Select value={routeIdx} onValueChange={(v) => v && setRouteIdx(v)}>
-                <SelectTrigger id="route" className="min-h-10 w-full text-sm">
-                  <SelectValue>
-                    {(value: string | null) => {
-                      const s = SEED_STATIONS[Number(value)];
-                      return s ? `${s.fromName} (${s.from}) → ${s.toName} (${s.to})` : t.home.selectRoutePlaceholder;
-                    }}
-                  </SelectValue>
-                </SelectTrigger>
-                <SelectContent>
-                  {SEED_STATIONS.map((s, i) => (
-                    <SelectItem key={s.from + s.to} value={String(i)}>
-                      {s.fromName} ({s.from}) → {s.toName} ({s.to})
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
+          <div className="flex flex-col gap-1.5">
+            <Label htmlFor="route" className="text-xs font-bold font-mono uppercase text-muted-foreground">{t.home.routeLabel}</Label>
+            <Select value={routeIdx} onValueChange={(v) => v && setRouteIdx(v)}>
+              <SelectTrigger id="route" className="min-h-10 w-full text-sm bg-background border-border/80">
+                <SelectValue>
+                  {(value: string | null) => {
+                    const s = SEED_STATIONS[Number(value)];
+                    return s ? `${s.fromName} (${s.from}) → ${s.toName} (${s.to})` : t.home.selectRoutePlaceholder;
+                  }}
+                </SelectValue>
+              </SelectTrigger>
+              <SelectContent>
+                {SEED_STATIONS.map((s, i) => (
+                  <SelectItem key={s.from + s.to} value={String(i)}>
+                    {s.fromName} ({s.from}) → {s.toName} ({s.to})
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
 
-            <div className="flex flex-col gap-1.5">
-              <Label htmlFor="date" className="text-xs">{t.home.dateLabel}</Label>
-              <Input
-                id="date"
-                type="date"
-                className="min-h-10 text-sm"
-                value={date}
-                onChange={(e) => setDate(e.target.value)}
-              />
-              <p className="text-[11px] text-muted-foreground">
-                {t.home.dateHelperText}
-              </p>
-            </div>
-
-            <Button onClick={submit} size="lg" className="min-h-10 gap-1.5 text-sm font-medium">
-              {t.home.searchButton}
-              <ArrowRight className="size-4" />
-            </Button>
-            <p className="text-center text-[11px] text-muted-foreground">
-              {t.common.mockNotice}
+          <div className="flex flex-col gap-1.5">
+            <Label htmlFor="date" className="text-xs font-bold font-mono uppercase text-muted-foreground">{t.home.dateLabel}</Label>
+            <Input
+              id="date"
+              type="date"
+              className="min-h-10 text-sm bg-background border-border/80 font-mono"
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+            />
+            <p className="text-[11px] text-muted-foreground">
+              {t.home.dateHelperText}
             </p>
-          </CardContent>
-        </Card>
+          </div>
+
+          <Button onClick={submit} size="lg" className="min-h-10 gap-1.5 text-sm font-semibold shadow-xs">
+            {t.home.searchButton}
+            <ArrowRight className="size-4" />
+          </Button>
+          <p className="text-center text-[10px] text-muted-foreground font-mono">
+            {t.common.mockNotice}
+          </p>
+        </div>
       </div>
 
-      <div className="grid grid-cols-3 gap-2 sm:gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
         {features.map((f) => {
           const Icon = f.icon;
           return (
             <div
               key={f.title}
-              className="flex flex-col sm:flex-row items-start gap-1.5 sm:gap-3 rounded-lg border border-border/40 bg-card p-2 sm:p-3 shadow-xs"
+              className="flex items-start gap-2.5 rounded-xl border border-border/80 bg-card p-3.5 paper-shadow"
             >
-              <span className="flex size-6 sm:size-8 shrink-0 items-center justify-center rounded-full bg-accent text-accent-foreground">
-                <Icon className="size-3.5 sm:size-4" />
+              <span className="flex size-7 shrink-0 items-center justify-center rounded-md bg-primary/10 text-primary mt-0.5">
+                <Icon className="size-3.5" />
               </span>
               <div className="min-w-0 flex-1">
-                <p className="text-[11px] sm:text-sm font-semibold leading-tight">{f.title}</p>
-                <p className="text-[9px] sm:text-xs text-muted-foreground leading-snug mt-0.5">{f.body}</p>
+                <p className="text-xs sm:text-sm font-bold leading-tight font-heading">{f.title}</p>
+                <p className="text-[11px] text-muted-foreground leading-relaxed mt-1">{f.body}</p>
               </div>
             </div>
           );

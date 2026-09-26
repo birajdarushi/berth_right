@@ -44,7 +44,7 @@ function QueuePageInner() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-border/60 pb-3">
         <div className="flex items-center gap-2">
           <Users2 className="size-5 text-primary" />
-          <h1 className="text-xl sm:text-2xl font-bold tracking-tight">
+          <h1 className="text-xl sm:text-2xl font-bold tracking-tight font-heading">
             {lang === "hi"
               ? "आरएसी कतार: वर्तमान बनाम बर्थ राइट"
               : lang === "mr"
@@ -56,13 +56,13 @@ function QueuePageInner() {
           <Select value={train.number} onValueChange={(v) => v && setTrainNumber(v)}>
             <SelectTrigger id="train" className="min-h-9 text-xs w-full">
               <SelectValue>
-                {() => `${train.name} · #${train.number} (${queue.length} RAC)`}
+                {() => `${train.name} · ${train.number} (${queue.length} RAC)`}
               </SelectValue>
             </SelectTrigger>
             <SelectContent>
               {SEED_TRAINS.map((t) => (
                 <SelectItem key={t.number} value={t.number} className="text-xs">
-                  {t.name} · #{t.number} ({(SEED_RAC_QUEUES[t.number] ?? []).length} RAC)
+                  {t.name} · {t.number} ({(SEED_RAC_QUEUES[t.number] ?? []).length} RAC)
                 </SelectItem>
               ))}
             </SelectContent>
@@ -70,7 +70,7 @@ function QueuePageInner() {
         </div>
       </div>
 
-      <p className="text-xs sm:text-sm text-muted-foreground">
+      <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
         {lang === "hi"
           ? "समान सीड कतार, दो आवंटन नियम। यह देखने के लिए टॉगल करें कि लिंग-अंध पेयरिंग आपको किसके साथ बैठाती है और समान-लिंग प्राथमिकता का वास्तविक प्रभाव क्या है।"
           : lang === "mr"
@@ -79,7 +79,7 @@ function QueuePageInner() {
       </p>
 
       {self ? (
-        <div className="rounded-xl border border-border/70 bg-card/60 p-4 shadow-2xs">
+        <div className="rounded-xl border border-border/80 bg-card p-4 sm:p-5 paper-shadow">
           <QueueVisualization queue={queue} berthIds={berths} selfPassengerId={self.passenger.id} />
         </div>
       ) : (

@@ -108,57 +108,66 @@ function PreferencePageInner() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-12 gap-5 md:gap-8 items-start">
-        {/* Left Column: Gender & Preferences */}
-        <div className="flex flex-col gap-3.5 md:col-span-6">
-          <div className="flex flex-col gap-1.5">
-            <Label htmlFor="gender" className="text-xs font-semibold">{t.preference.yourGender}</Label>
-            <Select value={gender} onValueChange={(v) => v && chooseGender(v as Gender)}>
-              <SelectTrigger id="gender" className="min-h-10 w-full text-sm">
-                <SelectValue>
-                  {(value: string | null) =>
-                    value ? genderLabelMap[value as Gender] || value : t.preference.selectGender
-                  }
-                </SelectValue>
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="female">{t.common.female}</SelectItem>
-                <SelectItem value="male">{t.common.male}</SelectItem>
-                <SelectItem value="transgender">{t.common.other}</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
+        {/* Left Column: Gender & Preferences Ballot */}
+        <div className="flex flex-col gap-4 md:col-span-7">
+          <div className="rounded-xl border border-border/80 bg-card p-4 sm:p-5 paper-shadow flex flex-col gap-4">
+            <div className="flex flex-col gap-1.5 pb-3 border-b border-border/60">
+              <Label htmlFor="gender" className="text-xs font-bold uppercase tracking-wider text-muted-foreground font-mono">
+                {t.preference.yourGender}
+              </Label>
+              <Select value={gender} onValueChange={(v) => v && chooseGender(v as Gender)}>
+                <SelectTrigger id="gender" className="min-h-10 w-full text-sm bg-background border-border/80">
+                  <SelectValue>
+                    {(value: string | null) =>
+                      value ? genderLabelMap[value as Gender] || value : t.preference.selectGender
+                    }
+                  </SelectValue>
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="female">{t.common.female}</SelectItem>
+                  <SelectItem value="male">{t.common.male}</SelectItem>
+                  <SelectItem value="transgender">{t.common.other}</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
 
-          <div className="flex flex-col gap-1.5">
-            <Label className="text-xs font-semibold">{t.preference.sharingPreferenceTitle}</Label>
-            <RadioGroup
-              value={preference}
-              onValueChange={(v) => choose(v as SharingPreference)}
-              className="flex flex-col gap-2"
-            >
-              {preferences.map((p) => (
-                <Label
-                  key={p.value}
-                  htmlFor={p.value}
-                  className="flex cursor-pointer flex-col gap-0.5 rounded-lg border border-border/80 p-2.5 has-data-[checked]:border-primary has-data-[checked]:bg-accent/40 shadow-2xs transition-colors"
-                >
-                  <div className="flex items-center gap-2">
-                    <RadioGroupItem value={p.value} id={p.value} />
-                    <span className="font-medium text-xs sm:text-sm">{p.label}</span>
-                  </div>
-                  <p className="pl-6 text-[11px] text-muted-foreground leading-snug">{p.description}</p>
-                </Label>
-              ))}
-            </RadioGroup>
+            <div className="flex flex-col gap-2">
+              <Label className="text-xs font-bold uppercase tracking-wider text-muted-foreground font-mono">
+                {t.preference.sharingPreferenceTitle}
+              </Label>
+              <RadioGroup
+                value={preference}
+                onValueChange={(v) => choose(v as SharingPreference)}
+                className="flex flex-col gap-2"
+              >
+                {preferences.map((p) => (
+                  <Label
+                    key={p.value}
+                    htmlFor={p.value}
+                    className="flex cursor-pointer flex-col gap-1 rounded-lg border border-border/80 bg-background p-3 has-data-[checked]:border-primary has-data-[checked]:bg-primary/5 shadow-2xs transition-all"
+                  >
+                    <div className="flex items-center gap-2.5">
+                      <RadioGroupItem value={p.value} id={p.value} />
+                      <span className="font-semibold text-xs sm:text-sm text-foreground">{p.label}</span>
+                    </div>
+                    <p className="pl-6 text-xs text-muted-foreground leading-relaxed">{p.description}</p>
+                  </Label>
+                ))}
+              </RadioGroup>
+            </div>
           </div>
         </div>
 
-        {/* Right Column: Queue Impact Alert, ExplainBlock, & CTA */}
-        <div className="flex flex-col gap-4 md:col-span-6">
+        {/* Right Column: Queue Impact, Context & CTA */}
+        <div className="flex flex-col gap-3.5 md:col-span-5">
           {preference === "same_gender_only" && (
-            <div className="flex gap-2.5 rounded-lg border border-amber-200 bg-amber-50/90 p-3 text-xs leading-relaxed text-amber-900 shadow-2xs">
-              <AlertTriangle className="size-4 shrink-0 translate-y-0.5 text-amber-600" />
-              <p>
-                {loading && (lang === "hi" ? "अनुमान लगाया जा रहा है..." : lang === "mr" ? "अंदाज घेत आहे..." : "Estimating…")}
+            <div className="rounded-xl border border-primary/20 bg-muted/20 p-4 paper-shadow text-xs leading-relaxed">
+              <div className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-primary/10 border border-primary/20 text-primary font-mono font-bold text-[10px] uppercase tracking-wider mb-1.5">
+                <AlertTriangle className="size-3 text-primary" />
+                <span>Queue Position Trade-Off</span>
+              </div>
+              <p className="text-foreground/85">
+                {loading && (lang === "hi" ? "अनुमान लगाया जा रहा है..." : lang === "mr" ? "अंदाज घेत आहे..." : "Calculating queue impact…")}
                 {!loading && cost && cost.estimatedPositionDelta > 0 && (
                   <>
                     {lang === "hi" ? (
@@ -166,7 +175,7 @@ function PreferencePageInner() {
                     ) : lang === "mr" ? (
                       <>फक्त समान लिंग निवडल्याने या गाडीच्या आरएसी रांगेत तुमचे स्थान साधारणपणे <strong>{cost.estimatedPositionDelta} स्थाने मागे</strong> जाऊ शकते. {cost.basis}</>
                     ) : (
-                      <>Same-gender only may move you approximately <strong>{cost.estimatedPositionDelta} places back</strong> in the RAC queue on this train. {cost.basis}</>
+                      <>Choosing strict same-gender sharing may shift you approximately <strong className="font-mono text-primary font-bold">{cost.estimatedPositionDelta} places back</strong> in the RAC queue for this train. {cost.basis}</>
                     )}
                   </>
                 )}
@@ -176,7 +185,7 @@ function PreferencePageInner() {
                       ? `इस समय इस ट्रेन के लिए कोई अनुमानित कतार प्रभाव नहीं है। ${cost.basis}`
                       : lang === "mr"
                       ? `या गाडीसाठी सध्या कोणताही अंदाजित रांग दंड नाही. ${cost.basis}`
-                      : `No estimated queue-position cost for this train right now. ${cost.basis}`}
+                      : `No queue-position penalty estimated for this train. ${cost.basis}`}
                   </>
                 )}
               </p>
@@ -192,7 +201,7 @@ function PreferencePageInner() {
             }
           />
 
-          <Button onClick={continueToPassengers} size="lg" className="min-h-11 gap-1.5 font-medium mt-1">
+          <Button onClick={continueToPassengers} size="lg" className="min-h-11 gap-1.5 font-semibold shadow-xs mt-1">
             {t.common.continue}
             <ArrowRight className="size-4" />
           </Button>

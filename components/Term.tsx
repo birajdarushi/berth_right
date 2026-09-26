@@ -8,23 +8,27 @@ export default function Term({ id }: { id: JargonId }) {
   const hi = JARGON_HI[id];
   const mr = JARGON_MR[id];
   return (
-    <details className="group my-2 rounded-md border border-zinc-200 bg-zinc-50 px-3 py-2">
-      <summary className="cursor-pointer text-sm font-medium list-none flex items-center justify-between gap-2 min-h-11">
-        <span>
-          {en.abbr}
-          <span className="font-normal text-zinc-600"> — {en.title}</span>
+    <details className="group my-2 rounded-lg border border-border/80 bg-muted/30 p-3 paper-shadow transition-colors">
+      <summary className="cursor-pointer text-xs sm:text-sm font-semibold list-none flex items-center justify-between gap-2 min-h-8">
+        <span className="flex items-center gap-1.5">
+          <span className="font-mono text-primary font-bold">{en.abbr}</span>
+          <span className="font-normal text-muted-foreground">— {en.title}</span>
         </span>
-        <span className="text-xs text-zinc-500 group-open:hidden">EN + हिन्दी + मराठी</span>
+        <span className="text-[10px] text-muted-foreground font-mono uppercase bg-background px-1.5 py-0.5 rounded border border-border/60 group-open:hidden">
+          EN + हिन्दी + मराठी
+        </span>
       </summary>
-      <p className="text-xs text-zinc-700 mt-1">{en.plain}</p>
-      {hi && (
-        <p className="text-xs text-zinc-700 mt-1">
-          <span className="font-medium text-primary">{hi.abbr}</span> — {hi.plain}
+      <div className="mt-2.5 pt-2 border-t border-border/60 flex flex-col gap-1.5 text-xs text-foreground/85 leading-relaxed">
+        <p><strong className="font-mono text-[11px] text-foreground">EN:</strong> {en.plain}</p>
+        {hi && (
+          <p>
+            <strong className="font-mono text-[11px] text-primary">{hi.abbr}:</strong> {hi.plain}
+          </p>
+        )}
+        <p>
+          <strong className="font-mono text-[11px] text-foreground">{mr.abbr}:</strong> {mr.plain}
         </p>
-      )}
-      <p className="text-xs text-zinc-700 mt-1">
-        <span className="font-medium">{mr.abbr}</span> — {mr.plain}
-      </p>
+      </div>
     </details>
   );
 }
